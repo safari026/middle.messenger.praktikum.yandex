@@ -1,0 +1,40 @@
+
+{{#>wrappedContainer}}
+    
+<section class='section'>
+    <h1 class="title">Вход</h1>
+    <form>
+        <div class='wrap-form'>
+            <label
+                for='{{authorization.login.name}}'
+                class='form-label'
+            >Логин</label>
+            <input
+                type='text'
+                name={{authorization.login.name}}
+                required
+                id='{{authorization.login.name}}'
+                placeholder='{{authorization.login.placeholder}}'
+            />
+        </div>
+        <div class='wrap-form'>
+            <label
+                for='{{authorization.password.name}}'
+                class='form-label'
+            >Пароль</label>
+            <input
+                type='password'
+                name='{{authorization.password.name}}'
+                id='{{authorization.password.name}}'
+                required
+                pattern='{{authorization.password.pattern}}'
+                placeholder='{{authorization.password.placeholder}}'
+            />
+        </div>
+        {{>fieldButton}}
+        <div class="form-link">
+            <a>{{authorization.linkRegistry.text}}</a>
+ </div>
+    </form>
+</section>
+{{/wrappedContainer}}

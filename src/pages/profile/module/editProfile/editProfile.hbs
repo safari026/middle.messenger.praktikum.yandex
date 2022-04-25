@@ -1,0 +1,22 @@
+{{#>wrappedContainer}}
+<nav class="side-nav">
+        <div class="side-nav-button">
+        <a href="#"><span></span></a>
+        </div>
+    </nav>
+    <div class="wrap-profile">
+ <div class="edit-profile-avatar">
+    <span class="profile-icon"></span>
+    </div> 
+    {{#each profileEditDataList}}
+    <div class="profile-edit">
+        <label for="{{fieldName}}">{{labelName}}</label>
+       {{>editProfileData .}}
+    </div>
+    {{/each}}
+    <div class="profile-save">
+ {{>buttonSave}}
+    </div>
+   
+    </div>
+{{/wrappedContainer}}
