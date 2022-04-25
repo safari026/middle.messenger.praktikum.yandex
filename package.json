@@ -1,0 +1,30 @@
+{
+    "name": "middle.messenger.praktikum.yandex",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "scripts": {
+        "dev":"parcel src/index.html",
+        "start": "node server.js",
+        "build":"parcel build src/index.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/safari026/middle.messenger.praktikum.yandex.git"
+    },
+    "author": "Zhila_A_A",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/safari026/middle.messenger.praktikum.yandex/issues"
+    },
+    "homepage": "https://github.com/safari026/middle.messenger.praktikum.yandex#readme",
+    "devDependencies": {
+        "@parcel/transformer-sass": "^2.5.0",
+        "express": "^4.17.3",
+        "handlebars": "^4.7.7",
+        "parcel": "^2.5.0",
+        "parcel-transformer-hbs": "^1.0.4",
+        "prettier": "^2.6.2",
+        "sass": "^1.50.1"
+    }
+}

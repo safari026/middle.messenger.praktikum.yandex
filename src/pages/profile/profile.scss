@@ -1,0 +1,107 @@
+.side-nav{
+    height: 100%;
+    width: 64px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FBFBFB;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.side-nav-button{
+    position: relative;
+    top:450px;
+    left:15px;
+& a::before{
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border-top: 10px solid transparent;
+border-right: 10px solid black;
+border-bottom: 10px solid transparent;
+top: 0px;
+right: 41px;
+}
+}
+
+.wrap-profile{
+    width: 510px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & h2{
+        margin-bottom: 60px;
+    }
+}
+
+
+.profile-avatar {
+    margin-top: 60px;
+    background-color: #efefef;
+    width: 130px;
+    height: 130px;
+    border-radius: 60px;
+    margin-bottom:20px;
+}
+.profile-info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #EAEAEA;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+& > span{
+    display: block;
+}
+
+}
+.edit-profile-avatar{
+    margin-top: 60px;
+    background-color: #efefef;
+    width: 130px;
+    height: 130px;
+    border-radius: 60px;
+    margin-bottom:90px;
+}
+.profile-edit{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #EAEAEA;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+}
+.profile-save{
+    margin-top: 162px;
+}
+.profile-icon {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url('../../../static/icons/camera-solid.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top:37px;
+    left:37px;
+    cursor: pointer;
+}
+.profile-link{
+    margin-top: 60px;
+    width: 100%;
+    
+    & .profile-info a{
+        color:#3369F3
+    }
+}
+
+.profile-link .profile-info .red{
+    color:#FF0000;
+}
+
+
