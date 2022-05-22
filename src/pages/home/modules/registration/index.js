@@ -4,7 +4,7 @@ import { containerWrapped } from '../../../../components/container/index'
 import './registration.scss'
 
 const fields = {
-    buttonText:'Зарегистрироваться',
+    buttonText: 'Зарегистрироваться',
     registration: {
         email: {
             name: 'email',

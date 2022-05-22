@@ -3,6 +3,7 @@ import '../../profile.scss'
 import { containerWrapped } from '../../../../components/container'
 import { fieldInput } from '../../../../components/input/index'
 import { button } from '../../../../components/button'
+
 const editPasswordData = {
     buttonText: 'Сохранить',
     passwordEditData: [

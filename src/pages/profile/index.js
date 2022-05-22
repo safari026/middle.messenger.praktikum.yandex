@@ -28,7 +28,6 @@ const fields = {
             fieldName: 'Телефон',
             profileInfo: '+7(909)-967-30-30',
         },
-
     ],
 }
 

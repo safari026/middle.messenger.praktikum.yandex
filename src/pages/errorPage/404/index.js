@@ -1,6 +1,7 @@
 import { containerWrapped } from '../../../components/container'
 import tmpl from './404.hbs'
 import './error.scss'
+
 const error = {
     notFound: {
         statusTitle: '404',

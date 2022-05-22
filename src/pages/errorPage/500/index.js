@@ -1,6 +1,7 @@
 import { containerWrapped } from '../../../components/container'
 import tmpl from './500.hbs'
 import './500.scss'
+
 const error = {
     internalServerError: {
         statusTitle: '500',

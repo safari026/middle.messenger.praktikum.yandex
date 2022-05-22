@@ -1,30 +1,42 @@
 {
-    "name": "middle.messenger.praktikum.yandex",
-    "version": "1.0.0",
-    "description": "",
-    "type": "module",
-    "scripts": {
-        "dev":"parcel src/index.html",
-        "start": "node server.js",
-        "build":"parcel build src/index.html"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/safari026/middle.messenger.praktikum.yandex.git"
-    },
-    "author": "Zhila_A_A",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/safari026/middle.messenger.praktikum.yandex/issues"
-    },
-    "homepage": "https://github.com/safari026/middle.messenger.praktikum.yandex#readme",
-    "devDependencies": {
-        "@parcel/transformer-sass": "^2.5.0",
-        "express": "^4.17.3",
-        "handlebars": "^4.7.7",
-        "parcel": "^2.5.0",
-        "parcel-transformer-hbs": "^1.0.4",
-        "prettier": "^2.6.2",
-        "sass": "^1.50.1"
-    }
+	"name": "middle.messenger.praktikum.yandex",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"scripts": {
+		"dev": "parcel src/index.html",
+		"start": "node server.js",
+		"build": "parcel build src/index.html",
+		"lint": "eslint ./src/**",
+		"lint:fix": "eslint ./src/** --fix"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/safari026/middle.messenger.praktikum.yandex.git"
+	},
+	"author": "Zhila_A_A",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/safari026/middle.messenger.praktikum.yandex/issues"
+	},
+	"homepage": "https://github.com/safari026/middle.messenger.praktikum.yandex#readme",
+	"devDependencies": {
+		"@parcel/transformer-sass": "2.5.0",
+		"@typescript-eslint/eslint-plugin": "5.25.0",
+		"@typescript-eslint/parser": "5.25.0",
+		"eslint": "8.16.0",
+		"eslint-config-airbnb-base": "15.0.0",
+		"eslint-config-prettier": "8.5.0",
+		"eslint-plugin-import": "2.26.0",
+		"eslint-plugin-prettier": "4.0.0",
+		"express": "4.17.3",
+		"parcel": "2.5.0",
+		"parcel-transformer-hbs": "1.0.4",
+		"prettier": "2.6.2",
+		"sass": "1.50.1",
+		"typescript": "4.6.4"
+	},
+	"dependencies": {
+		"handlebars": "4.7.7"
+	}
 }

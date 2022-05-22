@@ -2,6 +2,7 @@ import './authorization.scss'
 import tmpl from './authorization.hbs'
 import { button } from '../../../../components/button/index'
 import { containerWrapped } from '../../../../components/container/index'
+
 console.log(button('fieldButton'))
 const fields = {
     buttonText: 'Авторизоваться',
@@ -20,7 +21,6 @@ const fields = {
         linkRegistry: {
             text: 'Нет аккаунта?',
         },
-      
     },
 }
 

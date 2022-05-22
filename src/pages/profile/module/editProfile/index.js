@@ -2,6 +2,7 @@ import { button } from '../../../../components/button'
 import { containerWrapped } from '../../../../components/container'
 import { fieldInput } from '../../../../components/input'
 import tmpl from './editProfile.hbs'
+
 const fields = {
     buttonText: 'Сохранить',
     profileEditDataList: [
