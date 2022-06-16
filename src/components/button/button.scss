@@ -1,7 +1,18 @@
-.form-button{
-    background-color: #3369F3;
-    color:#FFFFFF;
-    padding:12px 70px;
-    border-radius: 8px;
-    display: inline-block;
- }
+.button {
+    margin: 10px;
+  }
+  
+  .button__button {
+    background-color: #1f9af3;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 15px 32px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+  
+  .button__button:hover {
+    opacity: 0.8;
+  }
+  

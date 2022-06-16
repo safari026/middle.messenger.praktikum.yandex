@@ -1,27 +1,57 @@
 {
-	"root": true,
 	"env": {
 		"browser": true,
 		"es2021": true
 	},
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"ecmaVersion": "es6",
-		"sourceType": "module"
-	},
-	"ignorePatterns": ["*.scss", "*.html"],
-	"plugins": ["@typescript-eslint"],
 	"extends": [
-		"standard",
+		"airbnb-base",
+		"airbnb-typescript/base",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:prettier/recommended"
 	],
+	"parser": "@typescript-eslint/parser",
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".ts"]
+			}
+		}
+	},
+	"parserOptions": {
+		"ecmaVersion": "es6",
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"ignorePatterns": ["*.scss", "*.html"],
+
+	"plugins": ["@typescript-eslint"],
 	"rules": {
-		// "no-empty-function": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"ts": "never"
+			}
+		],
 		"@typescript-eslint/ban-types": "off",
-		"@typescript-eslint/no-unused-vars": ["off"],
-		"@typescript-eslint/explicit-function-return-type": ["error"],
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"lines-between-class-members": "off",
+		"class-methods-use-this": ["off"],
+		"no-param-reassign": [
+			"error",
+			{ "props": true, "ignorePropertyModificationsForRegex": ["^_"] }
+		],
+		"no-underscore-dangle": ["error", { "allowAfterThis": true }],
+		"no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_"
+			}
+		],
 		"prettier/prettier": [
 			"error",
 			{
@@ -33,6 +63,7 @@
 				"printWidth": 100,
 				"endOfLine": "auto"
 			}
-		]
+		],
+		"import/prefer-default-export": "off"
 	}
 }

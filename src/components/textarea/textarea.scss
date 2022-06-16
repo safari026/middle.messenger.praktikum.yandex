@@ -1,0 +1,45 @@
+.textarea__conteiner {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #a5a0a0;
+    padding: 15px 20px;
+  }
+  .button{
+    margin: 0px;
+  }
+  .button__textarea__button-adds {
+    background: url('../../../static/icons/Group\ 196.png') no-repeat;
+    background-position: 0 1px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    top: -10px;
+  }
+  .textarea__message {
+    height: 30px;
+    background: rgba(0, 123, 255, 0.3);
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 100%;
+  }
+  .textarea__message::placeholder {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    color: #a5a0a0;
+  }
+  .button__textarea__button-send {
+    background: #007bff url('../../../static/icons/Vector\ 2.png') no-repeat;
+    background-position: 12px 10px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    top: -10px;
+  }
+  
