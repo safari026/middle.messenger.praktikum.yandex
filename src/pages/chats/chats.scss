@@ -7,7 +7,7 @@
     background: white;
     grid-column-start: 1;
     grid-column-end: 2;
-    border-right:1px solid #a5a0a0 ;
+    border-right:1px solid var(--grey-color) ;
   }
   .chat_container__tape a {
     background: url('../../../static/icons/profile_link_icon.png') right no-repeat;
@@ -22,7 +22,7 @@
     font-size: 18px;
     line-height: 30px;
     align-items: center;
-    color: #a5a0a0;
+    color: var(--grey-color);
     padding-right: 14px;
   }
   
@@ -63,7 +63,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
-    color: black;
+    color: var(--black-color);
     display: flex;
     text-align: left;
     align-items: center;
@@ -87,7 +87,7 @@
     padding: 20px 0px 5px;
   }
   .chat_container__dialog__textarea{
-    background-color: white;
+    background-color: var(--white-color);
   }
   .message p {
     font-family: 'Roboto';

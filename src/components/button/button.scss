@@ -3,10 +3,10 @@
   }
   
   .button__button {
-    background-color: #1f9af3;
+    background-color:var(--background-button);
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--white-color);
     padding: 15px 32px;
     font-size: 14px;
     border-radius: 20px;

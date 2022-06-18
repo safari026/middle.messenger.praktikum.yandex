@@ -1,5 +1,6 @@
 import Block from 'core/Block';
-import '../error.scss'
+import '../error.scss';
+
 export default class ServerErrorPage extends Block {
 	protected render(): string {
 		return `

@@ -7,8 +7,9 @@ export class ChatPage extends Block {
 		this.state = {
 			contacts: data,
 		};
-    console.log(this.state.contacts)
+		console.log(this.state.contacts);
 	}
+
 	protected render(): string {
 		return `
     <div class="chat_container">
@@ -43,4 +44,3 @@ export class ChatPage extends Block {
         `;
 	}
 }
-

@@ -1,5 +1,6 @@
 import { Block } from 'core';
 import '../error.scss';
+
 export default class NotFoundPage extends Block {
 	render() {
 		console.log('Block');

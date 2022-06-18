@@ -4,7 +4,7 @@
     height: 80px;
     margin: 0 auto;
     margin-top: 5px;
-    border-top: 1px solid #a5a0a0;
+    border-top: 1px solid var(--grey-color);
   }
   .contact__avatar {
     background: url('../../../static/icons/Ellipse\ 1.png') no-repeat;
@@ -21,7 +21,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
-    color:#000000;
+    color:var(--black-color);
     display: flex;
     text-align: left;
     margin: 0;
@@ -33,7 +33,7 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
-    color: #a5a0a0;
+    color: var(--grey-color);
     display: flex;
     text-align: left;
     margin: 0;
@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #a5a0a0;
+    color: var(--grey-color);
   }
 
   .contact__notification-circle {
@@ -65,7 +65,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
-    color:white;
+    color:var(--white-color);
     width: 20px;
     line-height: 20px;
     text-align: center;

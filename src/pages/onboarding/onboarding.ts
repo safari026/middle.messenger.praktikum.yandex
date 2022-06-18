@@ -1,8 +1,9 @@
-import { Block } from "core";
+import { Block } from 'core';
 import './onboarding.scss';
-export class OnboardingPage extends Block{
-    protected render(): string {
-        return`
+
+export class OnboardingPage extends Block {
+	protected render(): string {
+		return `
         {{#Layout name="Onboarding" }}
         <div class="onboard-page">
         <h1 class="onboard-page__title">Temporary project navigation</h1>
@@ -16,6 +17,6 @@ export class OnboardingPage extends Block{
         {{{Link text="Edit password" to="/edit-password"}}}
         </div>
         {{/Layout}}
-        `
-    }
+        `;
+	}
 }

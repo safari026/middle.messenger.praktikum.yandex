@@ -6,7 +6,7 @@ border-radius: 8px;
 margin-top: 20px;
 margin-left: auto;
 margin-right: auto;
-background: rgba(13, 31, 51, 0.3) url('../../../static/icons/search_icon.png') no-repeat;
+background: var(--background-search-input) url('../../../static/icons/search_icon.png') no-repeat;
 background-position: 10px !important;
 box-sizing: border-box;
 display: block;
@@ -21,7 +21,7 @@ line-height: 30px;
 display: flex;
 align-items: center;
 text-align: center;
-color: #a5a0a0;
+color: var(--grey-color);
 margin-left: 30px;
 }
 .search-form__content {

@@ -1,7 +1,7 @@
 .textarea__conteiner {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #a5a0a0;
+    border-top: 1px solid var(--grey-color);
     padding: 15px 20px;
   }
   .button{
@@ -18,7 +18,7 @@
   }
   .textarea__message {
     height: 30px;
-    background: rgba(0, 123, 255, 0.3);
+    background:var(--dark-blue-color);
     border-radius: 8px;
     margin-right: 20px;
     margin-left: 20px;
@@ -30,10 +30,10 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
-    color: #a5a0a0;
+    color: var(--grey-color);
   }
   .button__textarea__button-send {
-    background: #007bff url('../../../static/icons/Vector\ 2.png') no-repeat;
+    background: var(--primary-color) url('../../../static/icons/Vector\ 2.png') no-repeat;
     background-position: 12px 10px;
     border-radius: 50%;
     width: 30px;

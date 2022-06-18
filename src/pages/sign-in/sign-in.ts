@@ -1,31 +1,33 @@
 import Block from 'core/Block';
-import './sign-in.scss'
+import './sign-in.scss';
+
 export class SignInPage extends Block {
-    protected getStateFromProps(props: any): void {
+	protected getStateFromProps(_props: any): void {
 		this.state = {
 			values: {
-				email:'',
+				email: '',
 				login: '',
-				firstName:'',
-				surname:'',
-				phone:'',
+				firstName: '',
+				surname: '',
+				phone: '',
 				password: '',
-				repeatPassword:''
+				repeatPassword: '',
 			},
 			errors: {
-				email:'',
+				email: '',
 				login: '',
-				firstName:'',
-				surname:'',
-				phone:'',
+				firstName: '',
+				surname: '',
+				phone: '',
 				password: '',
-				repeatPassword:''
+				repeatPassword: '',
 			},
 		};
 	}
-	render(){
-		const{values,errors}=this.state
-		return`
+
+	render() {
+		const { values, errors } = this.state;
+		return `
 		{{#Layout name="Login" }}
 <h1 class="title">Registration</h1>
 <form class='form'>

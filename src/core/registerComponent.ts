@@ -6,7 +6,6 @@ interface BlockConstructable<Props = any> {
 }
 
 export default function registerComponent<Props extends any>(Component: BlockConstructable<Props>) {
-
 	Handlebars.registerHelper(
 		Component.name,
 		function (this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
@@ -25,7 +24,7 @@ export default function registerComponent<Props extends any>(Component: BlockCon
 			 * внутрь блоков вручную подменяя значение
 			 */
 			(Object.keys(hash) as any).forEach((key: keyof Props) => {
-				console.log('hash',hash, 'Key',key)
+				console.log('hash', hash, 'Key', key);
 				if (this[key]) {
 					hash[key] = hash[key].replace(new RegExp(`{{${key}}}`, 'i'), this[key]);
 				}

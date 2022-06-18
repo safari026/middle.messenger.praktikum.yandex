@@ -9,13 +9,13 @@
 	padding: 12px 20px;
 	box-sizing: border-box;
 	border-radius: 20px;
-	background: #e2f0fa;
+	background: var(--background-input);
 	border: 0;
 	margin-bottom: 5px;
 }
 
 .input__error {
-	color: rgba(241, 18, 18, 0.8);
+	color: var(--error-color);
 	font-size: 12px;
 	text-align: center;
 	height: 12px;

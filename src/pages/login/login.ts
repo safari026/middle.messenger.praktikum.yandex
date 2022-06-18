@@ -1,5 +1,6 @@
 import Block from 'core/Block';
-import './login.scss'
+import './login.scss';
+
 export class LoginPage extends Block {
 	protected getStateFromProps(props: any): void {
 		this.state = {
@@ -13,6 +14,7 @@ export class LoginPage extends Block {
 			},
 		};
 	}
+
 	render() {
 		const { values, errors } = this.state;
 

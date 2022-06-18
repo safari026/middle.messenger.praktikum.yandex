@@ -1,5 +1,6 @@
 import { Block } from 'core';
 import '../../profile.scss';
+
 export default class EditPasswordPage extends Block {
 	protected getStateFromProps(props: any): void {
 		this.state = {
@@ -13,6 +14,7 @@ export default class EditPasswordPage extends Block {
 			},
 		};
 	}
+
 	protected render(): string {
 		const { values, errors } = this.state;
 		return `

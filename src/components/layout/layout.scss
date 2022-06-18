@@ -8,7 +8,7 @@
 .screen {
     width: 320px;
     // height:  560px;
-    background: #e2f0fa;
+    background: var(--screen-background);
     display: flex;
     flex-direction: column;
     margin: 5px;
@@ -24,7 +24,7 @@
     height: 3px;
     width: 0%;
     opacity: 1;
-    background-color: red;
+    background-color:var(--error-color);
     z-index: 999999;
   
     animation-duration: 15s;
@@ -49,7 +49,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #777;
+    background: var(--background-color-loading);
     mix-blend-mode: hue;
   }
   
@@ -65,7 +65,7 @@
   }
   
   .screen__content {
-    background:#fff;
+    background:var(--white-color);
     flex-grow: 1;
     border-radius: 30px 30px 0 0;
     padding: 15px 15px 15px 15px;

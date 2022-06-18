@@ -1,8 +1,9 @@
-import { Block } from "core";
-import './contact.scss'
-export class Contact extends Block{
-    protected render(): string {
-        return`
+import { Block } from 'core';
+import './contact.scss';
+
+export class Contact extends Block {
+	protected render(): string {
+		return `
         <div class="contact">
       <div class="contact__avatar">
       </div>
@@ -26,6 +27,5 @@ export class Contact extends Block{
       </div>
     </div>
         `;
-    }
+	}
 }
-
