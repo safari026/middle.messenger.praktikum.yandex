@@ -32,6 +32,8 @@ export default class Block<P = any> {
 
 	protected refs: { [key: string]: HTMLElement } = {};
 
+	static componentName: string;
+
 	public constructor(props?: P) {
 		const eventBus = new EventBus<Events>();
 
@@ -141,7 +143,9 @@ export default class Block<P = any> {
 	_makePropsProxy(props: any): any {
 		// Можно и так передать this
 		// Такой способ больше не применяется с приходом ES6+
-		const self = this;
+		const self = () => {
+			return this;
+		};
 
 		return new Proxy(props as unknown as object, {
 			get(target: Record<string, unknown>, prop: string) {
@@ -153,7 +157,9 @@ export default class Block<P = any> {
 
 				// Запускаем обновление компоненты
 				// Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-				self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+				self()
+					.eventBus()
+					.emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
 				return true;
 			},
 			deleteProperty() {

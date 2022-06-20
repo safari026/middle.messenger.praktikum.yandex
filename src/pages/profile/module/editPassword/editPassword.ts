@@ -2,6 +2,8 @@ import { Block } from 'core';
 import '../../profile.scss';
 
 export default class EditPasswordPage extends Block {
+	static componentName = 'EditPasswordPage';
+
 	protected getStateFromProps(props: any): void {
 		this.state = {
 			values: {

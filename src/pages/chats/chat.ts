@@ -3,6 +3,8 @@ import './chats.scss';
 import data from '../../../static/data/contacts.json';
 
 export class ChatPage extends Block {
+	static componentName = 'ChatPage';
+
 	protected getStateFromProps(props: any): void {
 		this.state = {
 			contacts: data,

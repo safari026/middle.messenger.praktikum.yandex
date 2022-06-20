@@ -2,6 +2,8 @@ import { Block } from 'core';
 import './search.scss';
 
 export class Search extends Block {
+	static componentName = 'Search';
+
 	protected render(): string {
 		return `
         <form class="search-form">

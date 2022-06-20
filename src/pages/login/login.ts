@@ -8,7 +8,9 @@ import {
 import './login.scss';
 
 export class LoginPage extends Block {
-	protected getStateFromProps(props: any): void {
+	static componentName = 'LoginPage';
+
+	protected getStateFromProps(): void {
 		this.state = {
 			login: {
 				values: '',

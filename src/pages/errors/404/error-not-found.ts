@@ -2,6 +2,8 @@ import { Block } from 'core';
 import '../error.scss';
 
 export default class NotFoundPage extends Block {
+	static componentName = 'NotFoundPage';
+
 	render() {
 		return `
 		<div class="error-page">

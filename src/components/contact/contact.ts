@@ -2,6 +2,8 @@ import { Block } from 'core';
 import './contact.scss';
 
 export class Contact extends Block {
+	static componentName = 'Contact';
+
 	protected render(): string {
 		return `
         <div class="contact">

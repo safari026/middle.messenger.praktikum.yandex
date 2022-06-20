@@ -14,6 +14,8 @@ interface InputProps {
 }
 
 export class Input extends Block {
+	static componentName = 'Input';
+
 	constructor({
 		onChange = () => {},
 		type = 'text',

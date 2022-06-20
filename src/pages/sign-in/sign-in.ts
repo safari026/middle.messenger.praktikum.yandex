@@ -13,6 +13,8 @@ import {
 import './sign-in.scss';
 
 export class SignInPage extends Block {
+	static componentName = 'SignInPage';
+
 	protected getStateFromProps(_props: any): void {
 		this.state = {
 			firstName: {

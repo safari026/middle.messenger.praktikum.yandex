@@ -2,6 +2,8 @@ import Block from 'core/Block';
 import '../error.scss';
 
 export default class ServerErrorPage extends Block {
+	static componentName = 'ServerErrorPage';
+
 	protected render(): string {
 		return `
     <div class="error-page">
