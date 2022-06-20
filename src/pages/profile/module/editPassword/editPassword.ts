@@ -12,11 +12,21 @@ export default class EditPasswordPage extends Block {
 				oldPassword: '',
 				newPassword: '',
 			},
+
+			_editPassword: () => {
+				const editPassword = {
+					oldPassword: (this.refs.oldPassword.children[0] as HTMLInputElement).value,
+					newPassword: (this.refs.newPassword.children[0] as HTMLInputElement).value,
+				};
+
+				console.log('edit-password-state', editPassword);
+			},
 		};
 	}
 
+	// Todo:добавить сравнение паролей
 	protected render(): string {
-		const { values, errors } = this.state;
+		const { values } = this.state;
 		return `
     <div>
     <nav class="side-nav">
@@ -33,7 +43,6 @@ export default class EditPasswordPage extends Block {
       <form class='form'>
 {{{Input
 value="${values.oldPassword}"
-error="${errors.oldPassword}"
 ref="oldPassword"
 id="oldPassword"
 type="password"
@@ -41,7 +50,6 @@ placeholder="Old Password"
 }}}
 {{{Input
 value="${values.newPassword}"
-error="${errors.newPassword}"
 ref="newPassword"
 id="newPassword" 
 type="password"
@@ -51,6 +59,7 @@ placeholder="New Password"
 {{{Button
 text="Save"
 className="__button"
+onClick=_editPassword
 }}}
 {{/Layout}}
 </div>

@@ -2,29 +2,32 @@ import { Block } from 'core';
 import '../../profile.scss';
 
 export default class EditProfilePage extends Block {
-	protected getStateFromProps(props: any): void {
+	protected getStateFromProps(): void {
 		this.state = {
 			values: {
-				email: '',
-				login: '',
 				firstName: '',
-				surname: '',
-				chatName: '',
+				secondName: '',
+				login: '',
+				email: '',
+				password: '',
 				phone: '',
 			},
-			errors: {
-				email: '',
-				login: '',
-				firstName: '',
-				surname: '',
-				chatName: '',
-				phone: '',
+
+			_editData: () => {
+				const edit = {
+					firstName: (this.refs.firstName.firstElementChild as HTMLInputElement).value,
+					secondName: (this.refs.secondName.firstElementChild as HTMLInputElement).value,
+					login: (this.refs.login.firstElementChild as HTMLInputElement).value,
+					email: (this.refs.email.firstElementChild as HTMLInputElement).value,
+					phone: (this.refs.phone.firstElementChild as HTMLInputElement).value,
+				};
+				console.log('edit-data-state', edit);
 			},
 		};
 	}
 
 	render() {
-		const { values, errors } = this.state;
+		const { values } = this.state;
 		return `
         <div>
         <nav class="side-nav">
@@ -39,17 +42,8 @@ export default class EditProfilePage extends Block {
           <div class="user-profile__avatar"></div>
           <div class="profile-screen__content">
           <form class='form'>
-{{{Input
-    value="${values.email}"
-    error="${errors.email}"
-    ref="email"
-    id="email"
-    type="email"
-    placeholder="Email"
-  }}}
   {{{Input
 	value="${values.login}"
-	error="${errors.login}"
 	ref="login"
 	id="login" 
 	type="text"
@@ -57,31 +51,34 @@ export default class EditProfilePage extends Block {
   }}}
   {{{Input
 	value="${values.firstName}"
-	error="${errors.firstName}"
 	ref="firstName"
 	id="firstName" 
 	type="text"
-	placeholder="First Name"
+	placeholder="First name"
   }}}
   {{{Input
-	value="${values.surname}"
-	error="${errors.surname}"
-	ref="surname"
-	id="surname" 
+	value="${values.secondName}"
+	ref="secondName"
+	id="secondName" 
 	type="text"
-	placeholder="Surname"
+	placeholder="Second name"
   }}}
   {{{Input
-	value="${values.chatName}"
-	error="${errors.chatName}"
-	ref="chatName"
-	id="chatName" 
+	value="${values.login}"
+	ref="login"
+	id="login" 
 	type="text"
-	placeholder="Name in chat"
+	placeholder="Login"
+  }}}
+  {{{Input
+	value="${values.email}"
+	ref="email"
+	id="email" 
+	type="text"
+	placeholder="Email"
   }}}
   {{{Input
 	value="${values.phone}"
-	error="${errors.phone}"
 	ref="phone"
 	id="phone" 
 	type="text"
@@ -90,6 +87,7 @@ export default class EditProfilePage extends Block {
   {{{Button
     text="Save"
 	className="__button"
+	onClick=_editData
   }}}
 </form>
           </div>

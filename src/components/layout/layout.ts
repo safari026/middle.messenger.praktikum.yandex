@@ -1,9 +1,7 @@
 import Block from 'core/Block';
 import './layout.scss';
 
-interface LayoutProps {}
-
-export class Layout extends Block<LayoutProps> {
+export class Layout extends Block {
 	protected render() {
 		return `
         <div class="container">

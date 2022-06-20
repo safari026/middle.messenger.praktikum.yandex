@@ -219,18 +219,15 @@ export default class Block<P = any> {
 			}
 
 			const stubChilds = stub.childNodes.length ? stub.childNodes : [];
-			console.log('stubChilds', stubChilds);
 			/**
 			 * Заменяем заглушку на component._element
 			 */
 			const content = component.getContent();
 			stub.replaceWith(content);
-			console.log('content', content);
 			/**
 			 * Ищем элемент layout-а, куда вставлять детей
 			 */
 			const layoutContent = content.querySelector('[data-layout="1"]');
-			console.log('layoutContent', layoutContent);
 			if (layoutContent && stubChilds.length) {
 				layoutContent.append(...stubChilds);
 			}

@@ -3,7 +3,6 @@ import '../error.scss';
 
 export default class NotFoundPage extends Block {
 	render() {
-		console.log('Block');
 		return `
 		<div class="error-page">
 	<div class="error-page__content">
