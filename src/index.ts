@@ -1,17 +1,19 @@
-import { LoginPage } from 'pages/login/login';
-import Button from 'components/button';
-import Input from 'components/input';
+import { Button } from 'components/button';
+import { Contact } from 'components/contact';
+import { Input } from 'components/input';
+import { Layout } from 'components/layout';
+import { Link } from 'components/link';
+import { Search } from 'components/search';
+import { TextArea } from 'components/textarea';
 import { registerComponent, renderDOM } from 'core';
-import { Layout } from 'components/layout/layout';
-import { SignInPage } from 'pages/sign-in/sign-in';
-import { Link } from 'components/link/link';
+import { ChatPage } from 'pages/chats';
+
 import { NotFoundPage, ServerErrorPage } from 'pages/errors';
-import ProfilePage, { EditPasswordPage, EditProfilePage } from 'pages/profile';
-import ChatPage from 'pages/chats';
-import Search from 'components/search';
-import Contact from 'components/contact';
-import TextArea from 'components/textarea';
-import { OnboardingPage } from 'pages/onboarding/onboarding';
+import { LoginPage } from 'pages/login';
+import { OnboardingPage } from 'pages/onboarding';
+import { EditPasswordPage, EditProfilePage, ProfilePage } from 'pages/profile';
+import { SignInPage } from 'pages/sign-in';
+
 import { ROUTE_PAGES } from 'types/configRouting';
 
 registerComponent(Input);
