@@ -39,17 +39,16 @@
 		"@typescript-eslint/no-non-null-assertion": "off",
 		"lines-between-class-members": "off",
 		"class-methods-use-this": ["off"],
-		"no-param-reassign": [
-			"error",
-			{ "props": true, "ignorePropertyModificationsForRegex": ["^_"] }
-		],
+		"no-param-reassign": ["error", { "props": false }],
 		"no-underscore-dangle": ["error", { "allowAfterThis": true }],
-		"no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
+		"no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "args": "none" }],
+		"@typescript-eslint/no-unnecessary-type-constraint": "warn",
 		"@typescript-eslint/no-unused-vars": [
-			"error",
+			"warn",
 			{
 				"argsIgnorePattern": "^_",
-				"varsIgnorePattern": "^_"
+				"varsIgnorePattern": "^_",
+				"args": "none"
 			}
 		],
 		"prettier/prettier": [

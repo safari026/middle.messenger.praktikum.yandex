@@ -1,7 +1,7 @@
 import { Block } from 'core';
 import './profile.scss';
 
-export class ProfilePage extends Block {
+export default class ProfilePage extends Block {
 	static componentName = 'ProfilePage';
 
 	protected render(): string {

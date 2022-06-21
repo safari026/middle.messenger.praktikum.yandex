@@ -2,10 +2,10 @@ import Block from 'core/Block';
 import './chats.scss';
 import data from '../../../static/data/contacts.json';
 
-export class ChatPage extends Block {
+export default class ChatPage extends Block {
 	static componentName = 'ChatPage';
 
-	protected getStateFromProps(props: any): void {
+	protected getStateFromProps(): void {
 		this.state = {
 			contacts: data,
 		};

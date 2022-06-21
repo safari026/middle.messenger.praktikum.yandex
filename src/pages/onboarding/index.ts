@@ -1,1 +1,1 @@
-export { OnboardingPage as default } from './onboarding';
+export { default as OnboardingPage } from './onboarding';

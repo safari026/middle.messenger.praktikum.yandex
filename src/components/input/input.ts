@@ -2,9 +2,10 @@ import Block from '../../core/Block';
 
 import './input.scss';
 
+type InputType = 'text' | 'password' | 'email';
 interface InputProps {
 	onChange?: (e: any) => void;
-	type?: 'text' | 'password' | 'email';
+	type?: InputType;
 	placeholder?: string;
 	name: string;
 	value?: string;
@@ -13,7 +14,7 @@ interface InputProps {
 	onFocus?: () => void;
 }
 
-export class Input extends Block {
+export default class Input extends Block {
 	static componentName = 'Input';
 
 	constructor({

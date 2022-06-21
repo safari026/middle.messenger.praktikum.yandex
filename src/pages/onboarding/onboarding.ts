@@ -1,7 +1,7 @@
 import { Block } from 'core';
 import './onboarding.scss';
 
-export class OnboardingPage extends Block {
+export default class OnboardingPage extends Block {
 	static componentName = 'OnboardingPage';
 
 	protected render(): string {

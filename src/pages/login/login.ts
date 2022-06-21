@@ -1,13 +1,13 @@
 import Block from 'core/Block';
 import {
-	FindOneSymbol,
 	ValidationLogin,
 	ValidationPassword,
 	validPasswordReg,
+	validLoginReg,
 } from 'helpers/validation';
 import './login.scss';
 
-export class LoginPage extends Block {
+export default class LoginPage extends Block {
 	static componentName = 'LoginPage';
 
 	protected getStateFromProps(): void {
@@ -62,8 +62,6 @@ export class LoginPage extends Block {
 				};
 				if (!value) {
 					nextState.password.errors = ValidationPassword.REQUIRED_TEXT;
-				} else if (value.length < 8) {
-					nextState.password.errors = ValidationPassword.MAX_LENGTH;
 				} else if (!validPasswordReg.test(value)) {
 					nextState.password.errors = ValidationPassword.INFO;
 				}
@@ -80,10 +78,8 @@ export class LoginPage extends Block {
 				};
 				if (!value) {
 					nextState.login.errors = ValidationLogin.REQUIRED_TEXT;
-				} else if (value.length < 4) {
-					nextState.login.errors = ValidationLogin.MIN_LENGTH;
-				} else if (!FindOneSymbol.test(value)) {
-					nextState.login.errors = ValidationLogin.CHECK_ONE_SYMBOL;
+				} else if (!validLoginReg.test(value)) {
+					nextState.login.errors = ValidationLogin.INFO;
 				}
 				this.setState(nextState);
 			},

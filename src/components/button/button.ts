@@ -8,7 +8,7 @@ interface ButtonProps {
 	onClick: () => void;
 }
 
-export class Button extends Block {
+export default class Button extends Block {
 	static componentName = 'Button';
 
 	constructor({ text, className, onClick }: ButtonProps) {

@@ -1,7 +1,8 @@
-import { Block } from 'core';
+import Block from '../../core/Block';
+
 import './contact.scss';
 
-export class Contact extends Block {
+export default class Contact extends Block {
 	static componentName = 'Contact';
 
 	protected render(): string {

@@ -1,7 +1,7 @@
 import { Block } from 'core';
 import './textarea.scss';
 
-export class TextArea extends Block {
+export default class TextArea extends Block {
 	static componentName = 'TextArea';
 
 	protected getStateFromProps(): void {

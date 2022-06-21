@@ -1,18 +1,19 @@
 import Block from 'core/Block';
 import {
-	FindOneSymbol,
-	REQUIRED_TEXT,
+	validFieldFirstAndSecondName,
 	ValidationEmail,
-	validationEmailReg,
+	validEmailReg,
+	ValidationFirstAndSecondName,
 	ValidationLogin,
 	ValidationPassword,
 	ValidationPhone,
-	validationPhoneReg,
+	validPhoneReg,
 	validPasswordReg,
+	validLoginReg,
 } from 'helpers/validation';
 import './sign-in.scss';
 
-export class SignInPage extends Block {
+export default class SignInPage extends Block {
 	static componentName = 'SignInPage';
 
 	protected getStateFromProps(_props: any): void {
@@ -53,8 +54,6 @@ export class SignInPage extends Block {
 				};
 				if (!value) {
 					nextState.password.errors = ValidationPassword.REQUIRED_TEXT;
-				} else if (value.length < 8) {
-					nextState.password.errors = ValidationPassword.MAX_LENGTH;
 				} else if (!validPasswordReg.test(value)) {
 					nextState.password.errors = ValidationPassword.INFO;
 				}
@@ -72,10 +71,8 @@ export class SignInPage extends Block {
 				};
 				if (!value) {
 					nextState.login.errors = ValidationLogin.REQUIRED_TEXT;
-				} else if (value.length < 4) {
-					nextState.login.errors = ValidationLogin.MIN_LENGTH;
-				} else if (!FindOneSymbol.test(value)) {
-					nextState.login.errors = ValidationLogin.CHECK_ONE_SYMBOL;
+				} else if (!validLoginReg.test(value)) {
+					nextState.login.errors = ValidationLogin.INFO;
 				}
 				this.setState(nextState);
 			},
@@ -90,8 +87,11 @@ export class SignInPage extends Block {
 					},
 				};
 				if (!value) {
-					nextState.firstName.errors = REQUIRED_TEXT;
+					nextState.firstName.errors = ValidationFirstAndSecondName.REQUIRED_TEXT;
+				} else if (!validFieldFirstAndSecondName.test(value)) {
+					nextState.firstName.errors = ValidationFirstAndSecondName.CHECK_VALUE;
 				}
+
 				this.setState(nextState);
 			},
 
@@ -105,7 +105,9 @@ export class SignInPage extends Block {
 					},
 				};
 				if (!value) {
-					nextState.secondName.errors = REQUIRED_TEXT;
+					nextState.secondName.errors = ValidationFirstAndSecondName.REQUIRED_TEXT;
+				} else if (!validFieldFirstAndSecondName.test(value)) {
+					nextState.secondName.errors = ValidationFirstAndSecondName.CHECK_VALUE;
 				}
 				this.setState(nextState);
 			},
@@ -120,8 +122,8 @@ export class SignInPage extends Block {
 					},
 				};
 				if (!value) {
-					nextState.email.errors = REQUIRED_TEXT;
-				} else if (!validationEmailReg.test(value)) {
+					nextState.email.errors = ValidationEmail.REQUIRED_TEXT;
+				} else if (!validEmailReg.test(value)) {
 					nextState.email.errors = ValidationEmail.CHECK_VALUE;
 				}
 				this.setState(nextState);
@@ -137,15 +139,14 @@ export class SignInPage extends Block {
 					},
 				};
 				if (!value) {
-					nextState.phone.errors = REQUIRED_TEXT;
-				} else if (!validationPhoneReg.test(value)) {
+					nextState.phone.errors = ValidationPhone.REQUIRED_TEXT;
+				} else if (!validPhoneReg.test(value)) {
 					nextState.phone.errors = ValidationPhone.CHECK_VALUE;
 				}
 				this.setState(nextState);
 			},
 
 			_sendRegistrationData: () => {
-				console.log('This', this.refs.firstName.children[0].value);
 				const registrationData = {
 					firstName: (this.refs.firstName.children[0] as HTMLInputElement).value,
 					secondName: (this.refs.secondName.children[0] as HTMLInputElement).value,
@@ -184,22 +185,22 @@ export class SignInPage extends Block {
 				};
 
 				if (!registrationData.firstName) {
-					nextState.firstName.errors = ValidationLogin.REQUIRED_TEXT;
+					nextState.firstName.errors = ValidationFirstAndSecondName.REQUIRED_TEXT;
 				}
 				if (!registrationData.secondName) {
-					nextState.secondName.errors = ValidationLogin.REQUIRED_TEXT;
+					nextState.secondName.errors = ValidationFirstAndSecondName.REQUIRED_TEXT;
 				}
 				if (!registrationData.login) {
 					nextState.login.errors = ValidationLogin.REQUIRED_TEXT;
 				}
 				if (!registrationData.email) {
-					nextState.email.errors = ValidationLogin.REQUIRED_TEXT;
+					nextState.email.errors = ValidationEmail.REQUIRED_TEXT;
 				}
 				if (!registrationData.password) {
-					nextState.password.errors = ValidationLogin.REQUIRED_TEXT;
+					nextState.password.errors = ValidationPassword.REQUIRED_TEXT;
 				}
 				if (!registrationData.phone) {
-					nextState.phone.errors = ValidationLogin.REQUIRED_TEXT;
+					nextState.phone.errors = ValidationPhone.REQUIRED_TEXT;
 				}
 				this.setState(nextState);
 
