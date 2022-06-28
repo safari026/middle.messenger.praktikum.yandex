@@ -198,7 +198,6 @@ export default class Block<P = any> {
 
 	_compile(): DocumentFragment {
 		const fragment = document.createElement('template');
-
 		/**
 		 * Рендерим шаблон
 		 */
@@ -234,8 +233,17 @@ export default class Block<P = any> {
 			 * Ищем элемент layout-а, куда вставлять детей
 			 */
 			const layoutContent = content.querySelector('[data-layout="1"]');
+			const layoutChats = content.querySelector('[data-layout-chat="1"]');
+			/**
+			 * @layoutContent - Обертка для контента
+			 * @layoutChats
+			 */
 			if (layoutContent && stubChilds.length) {
 				layoutContent.append(...stubChilds);
+			}
+
+			if (layoutChats && stubChilds.length) {
+				layoutChats.append(...stubChilds);
 			}
 		});
 

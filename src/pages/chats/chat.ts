@@ -14,7 +14,7 @@ export default class ChatPage extends Block {
 
 	protected render(): string {
 		return `
-    <div class="chat_container">
+    {{#LayoutChats}}
     <div class="chat_container__tape">
       {{{Link text="Profile" to="/profile"}}}
       {{{Search}}}
@@ -42,7 +42,7 @@ export default class ChatPage extends Block {
         {{{TextArea}}}
       </div>
     </div>
-  </div>
+    {{/LayoutChats}}
         `;
 	}
 }

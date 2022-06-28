@@ -2,6 +2,7 @@ import { Button } from 'components/button';
 import { Contact } from 'components/contact';
 import { Input } from 'components/input';
 import { Layout } from 'components/layout';
+import { LayoutChats } from 'components/layout-chats';
 import { Link } from 'components/link';
 import { Search } from 'components/search';
 import { TextArea } from 'components/textarea';
@@ -23,6 +24,7 @@ registerComponent(Link);
 registerComponent(Search);
 registerComponent(Contact);
 registerComponent(TextArea);
+registerComponent(LayoutChats);
 
 document.addEventListener('DOMContentLoaded', () => {
 	switch (document.location.pathname) {
