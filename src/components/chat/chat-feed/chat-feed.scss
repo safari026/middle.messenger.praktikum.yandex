@@ -1,0 +1,133 @@
+.chatFeed {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .chatFeed__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 54px;
+    padding: 0 20px;
+    background-color: #fff;
+    border-bottom: 1px solid var(--lightGray);
+    box-sizing: border-box;
+  }
+  
+  .chatFeed__userInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chatFeed__avatar {
+    width: 34px;
+    height: 34px;
+    background-color: var(--lightGray);
+    border-radius: 50%;
+  }
+  
+  .chatFeed__username {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--black);
+    margin: 0 0 0 10px;
+  }
+  
+  .chatFeed__buttonConfig {
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    border: none;
+    background-image: url(../../../../static/icons/chatButtonConfig.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  .chatFeed__feed {
+    max-height: calc(100vh - 108px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+  
+  .chatFeed__date {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    color: var(--white-color);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .chatFeed__footer {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--white-color);
+    border-top: 1px solid var(--lightGray);
+    box-sizing: border-box;
+  }
+  
+  .chatFeed__buttonAttachment {
+    width: 34px;
+    height: 34px;
+    background-color: var(--white-color);
+    border: none;
+    background-image: url(../../../../static/icons/chatButtonAttachment.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  
+  .chatFeed__messageForm {
+    display: flex;
+    width: 100%;
+  }
+  
+  .chatFeed__messageInput {
+    width: 100%;
+    height: 32px;
+    background-color: var(--lightGray);
+    border: none;
+    border-radius: 30px;
+    padding: 0 30px;
+    margin: 0 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    outline: none;
+    word-break: break-word;
+  
+    &::placeholder {
+      color: var(--gray);
+    }
+  }
+  
+  .chatFeed__buttonSend {
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border: none;
+    background-image: url(../../../../static/icons/buttonIconArrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: rotate(180deg);
+    padding: 0;
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  

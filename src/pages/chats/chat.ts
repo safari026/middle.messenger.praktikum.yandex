@@ -1,47 +1,55 @@
 import Block from 'core/Block';
 import './chats.scss';
-import data from '../../../static/data/contacts.json';
+import { mockMessage } from '../../../static/data/chats';
+import { mockAvatar } from '../../../static/data/user';
 
+const profileLinkArrow = '../../../static/icons/profileLinkArrow.svg';
 export default class ChatPage extends Block {
 	static componentName = 'ChatPage';
-
-	protected getStateFromProps(): void {
-		this.state = {
-			contacts: data,
-		};
-		console.log(this.state.contacts);
-	}
 
 	protected render(): string {
 		return `
     {{#LayoutChats}}
-    <div class="chat_container__tape">
-      {{{Link text="Profile" to="/profile"}}}
-      {{{Search}}}
-      <div class="chat_container__chats_list">
-        {{#each contacts}}
-          {{{Contact name=this.name message=this.message notification=this.notification}}}
-        {{/each}}
-      </div>
-    </div>
-    <div class="chat_container__dialog">
-      <div class="chat_container__dialog__contact">
-        <div class="chat_container__dialog__contact__avatar"></div>
-        <div class="chat_container__dialog__contact__name">{{contacts.[0].name}}</div>
-        <div class="chat_container__dialog__contact__menu"></div>
-      </div>
-      <div class="chat_container__dialog__dialog">
-        <div class="message">
-          <p></p>
-        </div>
-        <div class="message">
-          <p></p>
-        </div>
-      </div>
-      <div class="chat_container__dialog__textarea">
-        {{{TextArea}}}
-      </div>
-    </div>
+    <section class="chats">
+    <div>
+          <div class="chats__profileLinkContainer">
+            <a href="../ProfilePage/profile-page.html" class="chats__profileLink">
+              Profile
+              <img src="${profileLinkArrow}" alt="" class="chats__profileLinkArrow" />
+            </a>
+          </div>
+          <div class="chats__search">
+            <input type="text" class="chats__searchInput" placeholder="Search" />
+          </div>
+          </div>
+          <div class="chats__list">
+          <ul class="chats__chatList">
+            {{{ ChatButton
+              username="jim"
+              isLastMessageMine=false
+              message="lorem"
+              time="10:59"
+              countBadge=1
+            }}}
+            {{{ ChatButton
+              username="michael"
+              isLastMessageMine=false
+              message="${mockMessage}"
+              time="10:59"
+              countBadge=12
+            }}}
+            {{{ ChatButton
+              username="dwight"
+              userAvatar="${mockAvatar}"
+              isLastMessageMine=true
+              message="${mockMessage}"
+              time="friday"
+              countBadge=0
+            }}}
+          </ul>
+          </div>
+        </section>
+        {{{ ChatFeed chatId="1" userAvatar="${mockAvatar}" }}}
     {{/LayoutChats}}
         `;
 	}

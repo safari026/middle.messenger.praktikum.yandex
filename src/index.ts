@@ -1,14 +1,15 @@
 import { Button } from 'components/button';
-import { Contact } from 'components/contact';
-import { Input } from 'components/input';
+import { ChatButton } from 'components/chat/chat-button';
+import { ChatFeed } from 'components/chat/chat-feed';
+import { ChatMessage } from 'components/chat/chat-message';
+import { ControlledInput } from 'components/controlled-input';
+import { ErrorMessage } from 'components/error';
+import Input from 'components/input /input';
 import { Layout } from 'components/layout';
 import { LayoutChats } from 'components/layout-chats';
 import { Link } from 'components/link';
-import { Search } from 'components/search';
-import { TextArea } from 'components/textarea';
 import { registerComponent, renderDOM } from 'core';
 import { ChatPage } from 'pages/chats';
-
 import { NotFoundPage, ServerErrorPage } from 'pages/errors';
 import { LoginPage } from 'pages/login';
 import { OnboardingPage } from 'pages/onboarding';
@@ -21,10 +22,12 @@ registerComponent(Input);
 registerComponent(Button);
 registerComponent(Layout);
 registerComponent(Link);
-registerComponent(Search);
-registerComponent(Contact);
-registerComponent(TextArea);
+registerComponent(ChatButton);
+registerComponent(ChatFeed);
+registerComponent(ChatMessage);
 registerComponent(LayoutChats);
+registerComponent(ControlledInput);
+registerComponent(ErrorMessage);
 
 document.addEventListener('DOMContentLoaded', () => {
 	switch (document.location.pathname) {

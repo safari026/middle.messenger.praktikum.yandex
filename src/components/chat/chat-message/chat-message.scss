@@ -1,0 +1,42 @@
+.chatMessage {
+	max-width: 450px;
+	position: relative;
+	background-color: var(--darkGray);
+	border-radius: 0 15px 15px;
+	margin: 0 10px 20px;
+}
+
+.chatMessage_mine {
+	background-color: var(--lightBlue);
+	border-radius: 15px 15px 0;
+	align-self: flex-end;
+	padding: 0 50px 0 0;
+}
+
+.chatMessage__messageText {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1em;
+	line-height: 1.25;
+	color: var(--black);
+	padding: 11px;
+	margin: 0;
+}
+
+.chatMessage__messageTime {
+	position: absolute;
+	right: 11px;
+	bottom: 11px;
+	margin: 0;
+	padding: 0;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 9px;
+	line-height: 1;
+	color: var(--gray);
+}
+
+.chatMessage__messageImage {
+	width: 100%;
+	border-radius: 15px;
+}

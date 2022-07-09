@@ -3,7 +3,7 @@ import Block from '../../core/Block';
 import './input.scss';
 
 type InputType = 'text' | 'password' | 'email';
-interface InputProps {
+export interface InputProps {
 	onChange?: (e: any) => void;
 	type?: InputType;
 	placeholder?: string;
@@ -21,6 +21,7 @@ export default class Input extends Block {
 		onChange = () => {},
 		type = 'text',
 		error,
+		name,
 		placeholder,
 		value,
 		onFocus,
@@ -30,18 +31,22 @@ export default class Input extends Block {
 			type,
 			placeholder,
 			value,
+			name,
 			error,
-			events: { input: onChange, focusout: onBlur, focusin: onFocus },
+			events: { input: onChange, blur: onBlur, focus: onFocus },
 		});
 	}
 
 	protected render(): string {
 		// language=hbs
 		return `
-      <div class="input">
-        <input class="input__input" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}">
-        <div class="input__error">{{#if error}}{{error}}{{/if}}</div>
-      </div>
+        <input 
+		class="input"
+		name={{name}}
+		type="{{type}}" 
+		placeholder="{{placeholder}}" 
+		value="{{value}}"
+		>
     `;
 	}
 }

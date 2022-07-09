@@ -1,120 +1,68 @@
 import Block from 'core/Block';
-import {
-	ValidationLogin,
-	ValidationPassword,
-	validPasswordReg,
-	validLoginReg,
-} from 'helpers/validation';
+import { ValidationRule, validationValue } from 'helpers/validation';
 import './login.scss';
 
+type LoginPageProps = {};
 export default class LoginPage extends Block {
 	static componentName = 'LoginPage';
 
-	protected getStateFromProps(): void {
-		this.state = {
-			login: {
-				values: '',
-				errors: '',
-			},
-			password: {
-				values: '',
-				errors: '',
-			},
+	constructor(props: LoginPageProps) {
+		super({
+			...props,
 			_sendLoginData: () => {
-				console.log('This.login', this.refs);
-				const loginData = {
-					login: (this.refs.login.children[0] as HTMLInputElement).value,
-					password: (this.refs.password.children[0] as HTMLInputElement).value,
-				};
-
-				const nextState = {
-					login: {
-						values: '',
-						errors: '',
-					},
-					password: {
-						values: '',
-						errors: '',
-					},
-					values: { ...loginData },
-				};
-
-				if (!loginData.login) {
-					nextState.login.errors = ValidationLogin.REQUIRED_TEXT;
+				const inputs: NodeListOf<HTMLInputElement> | undefined =
+					this.element?.querySelectorAll('input');
+				let isValid = true;
+				const data: Record<string, string> = {};
+				if (inputs) {
+					inputs.forEach((input) => {
+						const { name, value } = input;
+						const ucFirst = name[0].toUpperCase() + name.slice(1);
+						const errorMessage = validationValue(
+							ValidationRule[ucFirst as keyof typeof ValidationRule],
+							value,
+						);
+						if (errorMessage) {
+							isValid = false;
+							console.log('message');
+							this.refs[name].refs.error.setProps({ text: errorMessage });
+						} else {
+							data[ucFirst] = value;
+						}
+					});
+					if (isValid) {
+						console.log(data);
+					}
 				}
-				if (!loginData.password) {
-					nextState.password.errors = ValidationLogin.REQUIRED_TEXT;
-				}
-
-				this.setState(nextState);
-
-				console.log('login-state', loginData);
 			},
-
-			validateBlurPassword: (e: Event) => {
-				const { target } = e;
-				const { value } = target as HTMLInputElement;
-				const nextState = {
-					password: {
-						values: value,
-						errors: '',
-					},
-				};
-				if (!value) {
-					nextState.password.errors = ValidationPassword.REQUIRED_TEXT;
-				} else if (!validPasswordReg.test(value)) {
-					nextState.password.errors = ValidationPassword.INFO;
-				}
-				this.setState(nextState);
-			},
-			validateBlurLogin: (e: Event) => {
-				const { target } = e;
-				const { value } = target as HTMLInputElement;
-				const nextState = {
-					login: {
-						values: value,
-						errors: '',
-					},
-				};
-				if (!value) {
-					nextState.login.errors = ValidationLogin.REQUIRED_TEXT;
-				} else if (!validLoginReg.test(value)) {
-					nextState.login.errors = ValidationLogin.INFO;
-				}
-				this.setState(nextState);
-			},
-		};
+		});
 	}
 
 	render() {
-		const { login, password } = this.state;
 		return `
 {{#Layout name="Login" }}
 <h1 class="title">Sign in</h1>
 <form class='form'>
-{{{Input
-    value="${login.values}"
-    error="${login.errors}"
+{{{ControlledInput
     ref="login"
     id="login"
     type="text"
 	name="login"
+	validationRule = "${ValidationRule.Login}"
     placeholder="Login"
-	onBlur=validateBlurLogin
   }}}
-  {{{Input
-	value="${password.values}"
-	error="${password.errors}"
-	ref="password"
-	id="password" 
-	type="password"
-	placeholder="Password"
-	onBlur=validateBlurPassword
+  {{{ControlledInput
+    ref="password"
+    id="password"
+    type="password"
+	name="password"
+	validationRule = "${ValidationRule.Password}"
+    placeholder="Password"
   }}}
   {{{Button
     text="Authorization" className="__button"  onClick=_sendLoginData
   }}}
-  {{{Link to="/login" text="No account?"}}}
+  {{{Link to="/sign-in" text="No account?"}}}
 </form>
 {{/Layout}}
 `;

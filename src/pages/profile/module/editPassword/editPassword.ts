@@ -1,86 +1,46 @@
 import { Block } from 'core';
-import { ValidationPassword, validPasswordReg } from 'helpers/validation';
+import {
+	ValidationRule,
+	validationValue,
+} from 'helpers/validation';
 import '../../profile.scss';
 
+type EditPasswordPageProps = {};
 export default class EditPasswordPage extends Block {
 	static componentName = 'EditPasswordPage';
 
-	protected getStateFromProps(): void {
-		this.state = {
-			oldPassword: {
-				values: '',
-				errors: '',
-			},
-			newPassword: {
-				values: '',
-				errors: '',
-			},
-
+	constructor(props: EditPasswordPageProps) {
+		super({
+			...props,
 			_editPassword: () => {
-				const editPassword = {
-					oldPassword: (this.refs.oldPassword.children[0] as HTMLInputElement).value,
-					newPassword: (this.refs.newPassword.children[0] as HTMLInputElement).value,
-				};
-				const nextState = {
-					oldPassword: {
-						values: '',
-						errors: '',
-					},
-					newPassword: {
-						values: '',
-						errors: '',
-					},
-					values: { ...editPassword },
-				};
-				if (!editPassword.oldPassword) {
-					nextState.oldPassword.errors = ValidationPassword.REQUIRED_TEXT;
+				const inputs: NodeListOf<HTMLInputElement> | undefined =
+					this.element?.querySelectorAll('input');
+				console.log(inputs);
+				let isValid = true;
+				const data: Record<string, string> = {};
+				if (inputs) {
+					inputs.forEach((input) => {
+						const { name, value } = input;
+						const ucFirst = name[0].toUpperCase() + name.slice(1);
+						const errorMessage = validationValue(ValidationRule.Password, value);
+						if (errorMessage) {
+							isValid = false;
+							console.log('message');
+							this.refs[name].refs.error.setProps({ text: errorMessage });
+						} else {
+							data[ucFirst] = value;
+						}
+					});
+					if (isValid) {
+						console.log(data);
+					}
 				}
-				if (!editPassword.newPassword) {
-					nextState.newPassword.errors = ValidationPassword.REQUIRED_TEXT;
-				}
-				this.setState(nextState);
-				console.log('edit-password-state', editPassword);
 			},
-			validateBlurOldPassword: (e: Event) => {
-				const { target } = e;
-				const { value } = target as HTMLInputElement;
-				const nextState = {
-					oldPassword: {
-						values: value,
-						errors: '',
-					},
-				};
-				if (!value) {
-					nextState.oldPassword.errors = ValidationPassword.REQUIRED_TEXT;
-				} else if (!validPasswordReg.test(value)) {
-					nextState.oldPassword.errors = ValidationPassword.INFO;
-				}
-				this.setState(nextState);
-			},
-			validateBlurNewPassword: (e: Event) => {
-				const { target } = e;
-				const { value } = target as HTMLInputElement;
-				const nextState = {
-					newPassword: {
-						values: value,
-						errors: '',
-					},
-				};
-				if (!value) {
-					nextState.newPassword.errors = ValidationPassword.REQUIRED_TEXT;
-				} else if (!validPasswordReg.test(value)) {
-					nextState.newPassword.errors = ValidationPassword.INFO;
-				} else if (this.state.oldPassword.values !== nextState.newPassword.values) {
-					nextState.newPassword.errors = 'Пароли не совпадают';
-				}
-				this.setState(nextState);
-			},
-		};
+		});
 	}
 
 	// Todo:добавить сравнение паролей
 	protected render(): string {
-		const { oldPassword, newPassword } = this.state;
 		return `
     <div>
     <nav class="side-nav">
@@ -95,23 +55,21 @@ export default class EditPasswordPage extends Block {
       <div class="user-profile__avatar"></div>
       <div class="profile-screen__content">
       <form class='form'>
-{{{Input
-value="${oldPassword.values}"
-error="${oldPassword.errors}"
+{{{ControlledInput
 ref="oldPassword"
 id="oldPassword"
 type="password"
+name="oldPassword"
+validationRule="${ValidationRule.Password}"
 placeholder="Old Password"
-onBlur=validateBlurOldPassword
 }}}
-{{{Input
-value="${newPassword.values}"
-error="${newPassword.errors}"
+{{{ControlledInput
 ref="newPassword"
 id="newPassword" 
 type="password"
+name="newPassword"
+validationRule="${ValidationRule.Password}"
 placeholder="New Password"
-onBlur=validateBlurNewPassword
 }}}
 
 {{{Button

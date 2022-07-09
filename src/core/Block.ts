@@ -30,7 +30,7 @@ export default class Block<P = any> {
 
 	protected state: any = {};
 
-	protected refs: { [key: string]: HTMLElement } = {};
+	protected refs: { [key: string]: Block } = {};
 
 	static componentName: string;
 
