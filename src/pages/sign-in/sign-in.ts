@@ -1,15 +1,29 @@
 import Block from 'core/Block';
+import { BrowserRouter } from 'core/BrowserRouter';
+import { Store } from 'core/Store';
+import { withRouter } from 'core/withRouter';
+import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
+import { logout, sendLoginData } from '../../services/auth';
 import './sign-in.scss';
 
-type SignInPageProps = {};
-export default class SignInPage extends Block {
-	static componentName = 'SignInPage';
+interface SignInPageProps {
+	router: BrowserRouter;
+	store: Store<AppState>;
+	_sendLoginData: () => void;
+	formError?: () => string | null;
+	onLogout?: () => void;
+}
+class SignInPage extends Block<SignInPageProps> {
+	static componentName = 'SignInPageProps';
 
 	constructor(props: SignInPageProps) {
 		super({
 			...props,
-			_sendRegistrationData: () => {
+			onLogout: () => {
+				this.props.store.dispatch(logout);
+			},
+			_sendLoginData: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
@@ -24,81 +38,62 @@ export default class SignInPage extends Block {
 						);
 						if (errorMessage) {
 							isValid = false;
-							console.log('message');
-							this.refs[name].refs.error.setProps({ text: errorMessage });
+							this.refs[name].getRefs().error.setProps({ text: errorMessage });
 						} else {
-							data[ucFirst] = value;
+							data[name] = value;
 						}
 					});
 					if (isValid) {
 						console.log(data);
+						this.props.store.dispatch(sendLoginData, data);
 					}
 				}
 			},
 		});
+		this.setProps({
+			formError: () => this.props.store.getState().loginFormError,
+		});
+	}
+
+	componentDidMount(): void {
+		if (this.props.store.getState().user?.secondName) {
+			this.props.router.go('/chats');
+		}
 	}
 
 	render() {
 		return `
-		{{#Layout name="Login" }}
-<h1 class="title">Registration</h1>
+{{#Layout name="Login" }}
+<h1 class="title">Sign in</h1>
 <form class='form'>
 {{{ControlledInput
-    ref="firstName"
-    id="firstName"
+    ref="login"
+    id="login"
     type="text"
-	name="firstName"
-	validationRule="${ValidationRule.FirstName}"
-    placeholder="First name"
-  }}}
-  {{{ControlledInput
-	ref="secondName"
-	id="secondName" 
-	type="text"
-	name="secondName"
-	validationRule="${ValidationRule.SecondName}"
-	placeholder="Second name"
-  }}}
-  {{{ControlledInput
-	ref="login"
-	id="login" 
-	type="text"
 	name="login"
-	validationRule="${ValidationRule.Login}"
-	placeholder="Login"
+	validationRule = "${ValidationRule.Login}"
+    placeholder="Login"
   }}}
   {{{ControlledInput
-	ref="email"
-	id="email" 
-	type="text"
-	name="email"
-	validationRule="${ValidationRule.Email}"
-	placeholder="Email"
-  }}}
-  {{{
-	ControlledInput
-	ref="password"
-	id="password"
-	type="password"
+    ref="password"
+    id="password"
+    type="password"
 	name="password"
-	validationRule="${ValidationRule.Password}"
-	placeholder="Password"
-  }}}
-  {{{
-	ControlledInput
-	ref="phone"
-	id="phone"
-	type='text'
-	name="phone"
-	validationRule="${ValidationRule.Phone}"
-	placeholder="Phone"
+	validationRule = "${ValidationRule.Password}"
+    placeholder="Password"
+  }}}	
+  {{{Error text=formError}}}
+  {{{Button
+    text="Authorization" className="__button"  onClick=_sendLoginData
   }}}
   {{{Button
-    text="Sign Up" className="__button" onClick=_sendRegistrationData
+    text="Log out" className="__button"  onClick=onLogout
   }}}
-  {{{Link to="/login" text="No account?"}}}
+  {{{Link to="/sign-up" text="No account?"}}}
 </form>
 {{/Layout}}
-		`;
+`;
 	}
 }
+
+export default withRouter(withStore(SignInPage));

@@ -1,59 +1,99 @@
-import { Block } from 'core';
+import { Block, registerComponent } from 'core';
+import { BrowserRouter } from 'core/BrowserRouter';
+import { getUserInfoRows } from 'core/getUserInfoRows';
+import { Store } from 'core/Store';
+import { withRouter } from 'core/withRouter';
+import { withStore } from 'core/withStore';
+import { getUser, logout } from '../../services/auth';
 import './profile.scss';
 
-export default class ProfilePage extends Block {
+interface UserProfileProps {
+	router: BrowserRouter;
+	store: Store<AppState>;
+	formError?: () => string | null;
+	userInfoRows: UserInfoRow[];
+	onLogout?: () => void;
+	user: User | null;
+}
+
+export interface UserInfoRow {
+	name: string;
+	label: string;
+	value: string | number;
+}
+const defaultImage = '../../../static/icons/chatNoAvatar.svg';
+class ProfilePage extends Block<UserProfileProps> {
 	static componentName = 'ProfilePage';
 
-	protected render(): string {
+	constructor(props: UserProfileProps) {
+		super({
+			...props,
+			onLogout: () => {
+				this.props.store.dispatch(logout);
+			},
+		});
+		if (!this.props.store.getState().user) {
+			this.props.store.dispatch(getUser);
+		}
+	}
+
+	componentDidMount(): void {
+		this.setState({
+			userInfoRows: getUserInfoRows(this.state.userInfoRows, this.props.store.getState().user),
+		});
+	}
+
+	protected getStateFromProps() {
+		this.state = {
+			userInfoRows: [
+				{ name: 'email', label: 'Email', value: '-' },
+				{ name: 'login', label: 'Login', value: '-' },
+				{ name: 'firstName', label: 'First name', value: '-' },
+				{ name: 'secondName', label: 'Second name', value: '-' },
+				{ name: 'displayName', label: 'Display name', value: '-' },
+				{ name: 'phone', label: 'Phone', value: '-' },
+			],
+		};
+	}
+
+	render() {
+		const userName = this.props.store.getState().user?.firstName;
+		const avatar = this.props.store.getState().user?.avatar;
 		return `
     <div>
     <nav class="side-nav">
         <div class="side-nav__button">
-        {{{Link to="/chat" }}}
+        {{{Link to="/chats" }}}
         </div>
     </nav>
         {{#Layout name="ProfilePage" fullScreen=true}}
       
         <div class="profile-screen">
-        <div class="profile-screen__header user-profile">
-          <div class="user-profile__avatar" ></div>
-          <div class="user-profile__name">
-           Иван Иванов
-          </div>
-        </div>
+        ${
+					avatar
+						? `{{{UserAvatar userName="${userName}" avatar="https://ya-praktikum.tech/api/v2/resources/${avatar}"}}}`
+						: `{{{UserAvatar}}}`
+				}
+       
         <div class="profile-screen__content">
           <div class="profile-screen__title">
             Account Info
           </div>
           <div class="profile-screen__info-wrapper">
-            <div class="profile-screen__info">
-              <div class="profile-screen__label">
-                Phone number
+            {{#each userInfoRows}}
+              <div class="profile-screen__info">
+                <div class="profile-screen__label">
+                  {{label}}
+                </div>
+                <div class="profile-screen__value">
+                  {{value}}
+                </div>
               </div>
-              <div class="profile-screen__value">
-               8(903)-275-75-68
-              </div>
-            </div>
-            <div class="profile-screen__info">
-              <div class="profile-screen__label">
-                Username
-              </div>
-              <div class="profile-screen__value">
-                Grasin
-              </div>
-            </div>
-            <div class="profile-screen__info">
-              <div class="profile-screen__label">
-                Email
-              </div>
-              <div class="profile-screen__value">
-                grasin_tweens@master.com
-              </div>
-            </div>
+            {{/each}}
           </div>
           <div class="profile-screen__setting">
-          {{{Link to="/edit-profile" text="Edit profile"}}}
-          {{{Link to="/edit-password" text="Edit password"}}}
+          {{{Link to="/update-user-info" text="Edit profile"}}}
+          {{{Link to="/update-user-password" text="Edit password"}}}
           {{{Button text="Logout" onClick=onLogout className="__button"}}}
           </div>
         </div>
@@ -63,3 +103,4 @@ export default class ProfilePage extends Block {
         `;
 	}
 }
+export default withRouter(withStore(ProfilePage));

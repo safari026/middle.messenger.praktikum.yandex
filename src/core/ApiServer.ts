@@ -2,17 +2,17 @@ enum METHODS {
 	GET = 'GET',
 	POST = 'POST',
 	PUT = 'PUT',
-	PATCH = 'PATCH',
 	DELETE = 'DELETE',
 }
 
-type TRequestData = Record<string, string | number>;
+type TRequestData = Record<string, unknown>;
 
 type TRequestOptions = {
 	method?: METHODS;
 	headers?: Record<string, string>;
 	timeout?: number;
-	data?: unknown;
+	data?: any;
+	mode?: string;
 };
 
 function queryStringify(data: TRequestData) {
@@ -23,59 +23,66 @@ function queryStringify(data: TRequestData) {
 		'?',
 	);
 }
-class HTTPTransport {
-	public get = (url: string, options = {}) => {
-		return this.request(url, { ...options, method: METHODS.GET });
+const baseUrl = 'https://ya-praktikum.tech/api/v2/';
+export default class HTTPTransport {
+	public get = (url: string, options: TRequestOptions = {}) => {
+		return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
-	public post = (url: string, options = {}) => {
-		return this.request(url, { ...options, method: METHODS.POST });
+	public post = (url: string, options: TRequestOptions = {}) => {
+		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
-	public put = (url: string, options = {}) => {
-		return this.request(url, { ...options, method: METHODS.PUT });
+	public put = (url: string, options: TRequestOptions = {}) => {
+		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 	};
 
-	public patch = (url: string, options = {}) => {
-		return this.request(url, { ...options, method: METHODS.PATCH });
+	public delete = (url: string, options: TRequestOptions = {}) => {
+		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 	};
 
-	public delete = (url: string, options = {}) => {
-		return this.request(url, { ...options, method: METHODS.DELETE });
-	};
-
-	request = (url: string, options: TRequestOptions) => {
-		const { method = METHODS.GET, headers = {}, data, timeout = 5000 } = options;
-
-		// Если метод GET и передана data, трансформировать data в query запрос
-		const query = method === METHODS.GET ? queryStringify(data as TRequestData) : '';
+	request = (url: string, options: TRequestOptions, timeout = 5000): Promise<XMLHttpRequest> => {
+		console.log('Options data.', options.data);
+		const {
+			method = METHODS.GET,
+			headers = { 'Content-Type': 'application/json' },
+			data,
+		} = options;
 
 		return new Promise((resolve, reject) => {
+			if (!method) {
+				// eslint-disable-next-line prefer-promise-reject-errors
+				reject('No method');
+				return;
+			}
+
 			const xhr = new XMLHttpRequest();
+			const isGet = method === METHODS.GET;
+			const withBaseUrl = `${baseUrl}${url}`;
 
-			xhr.open(method, url + query);
+			xhr.open(method, isGet && !!data ? `${withBaseUrl}${queryStringify(data)}` : withBaseUrl);
+			xhr.withCredentials = true;
 
-			Object.entries(headers).forEach(([key, value]) => {
-				xhr.setRequestHeader(key, value);
+			Object.keys(headers).forEach((key) => {
+				xhr.setRequestHeader(key, headers[key]);
 			});
 
-			xhr.onload = () => {
-				if (xhr.status >= 300) {
-					reject(xhr);
-				} else {
-					resolve(xhr);
-				}
+			xhr.onload = function () {
+				resolve(xhr);
 			};
 
 			xhr.onabort = reject;
 			xhr.onerror = reject;
+
 			xhr.timeout = timeout;
 			xhr.ontimeout = reject;
 
-			if (method === METHODS.GET || !data) {
+			if (isGet || !data) {
 				xhr.send();
-			} else {
+			} else if (headers['Content-Type'] === 'application/json') {
 				xhr.send(JSON.stringify(data));
+			} else {
+				xhr.send(data);
 			}
 		});
 	};

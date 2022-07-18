@@ -2,5 +2,19 @@
 	padding: 15px 0 0 0;
 	max-width: 300px;
 	width: 220px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
+}
+.controlled-input__label {
+	font-size: 14px;
+	color: var(--profile-screen-label);
+	padding: 5px 5px;
+	font-weight: bold;
+}
+.controlled-input__message {
+	width: 100%;
+	font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    outline: none;
 }

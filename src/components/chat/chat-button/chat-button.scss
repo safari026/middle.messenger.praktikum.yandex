@@ -1,99 +1,46 @@
-.chatButton {
-    height: 70px;
-    display: flex;
-    border-top: 1px solid var(--lightGray);
-    // width: 100%;
-  }
+.chat {
+  width: 100%;
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid var(--light-gray);
+  cursor: pointer;
+}
 
-  .chatButton:hover {
-    cursor: pointer;
-  }
+.chat-avatar {
+  margin-right: 8px;
+  border-radius: 50%;
+  background-color: var(--gray);
+  width: 48px;
+  height: 48px;
+}
 
-  .chatButton:last-of-type {
-    border-bottom: 1px solid var(--lightGray);
-  }
+.chat-avatar-image {
+  width: 48px;
+  height: 48px;
+}
 
-  .chatButton__avatar {
-    width: 47px;
-    height: 47px;
-    background-color: var(--lightGray);
-    border-radius: 50%;
-    margin: 12px 10px;
-    padding: 0;
-  }
+.chat-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--gray);
+}
 
-  .chatButton__messageInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-  }
+.chat-content-top {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .chatButton__userAndMessage {
-    width: 100%;
-    max-width: 193px;
-  }
+.chat-content-title {
+  color: var(--clr-font);
+  font-size: 14px;
+  font-weight: 700;
+}
 
-  .chatButton__username {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 1;
-    color: var(--black-color);
-    margin: 12px 0 0;
-    width: 100%;
-    max-width: 193px;
-  }
+.chat-content-subtitle {
+  font-size: 12px;
+}
 
-  .chatButton__messageText {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.25;
-    color: var(--gray);
-    width: 100%;
-    max-width: 193px;
-    height: 30px;
-    margin: 4px 0 0;
-    padding: 0;
-    /* white-space: nowrap; */
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  .chatButton__message_you {
-    color: var(--black-color);
-  }
-
-  .chatButton__timeAndCount {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin: 12px 10px 12px 0;
-  }
-
-  .chatButton__time {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 9px;
-    line-height: 1.44;
-    color: var(--gray);
-    margin: 0;
-  }
-
-  .chatButton__countBadge {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 1.09;
-    color: #fff;
-    width: 20px;
-    height: 20px;
-    background-color: var(--blue);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-  }
+.chat-content-time {
+  font-size: 9px;
+}

@@ -2,8 +2,9 @@ import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
-interface BlockMeta<P = any> {
-	props: P;
+export interface BlockClass<P> extends Function {
+	new (props: P): Block<P>;
+	componentName?: string;
 }
 
 type Events = Values<typeof Block.EVENTS>;
@@ -13,12 +14,11 @@ export default class Block<P = any> {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',
+		FLOW_CWU: 'flow:component-will-unmount',
 		FLOW_RENDER: 'flow:render',
 	} as const;
 
 	public id = nanoid(6);
-
-	private readonly _meta: BlockMeta;
 
 	protected _element: Nullable<HTMLElement> = null;
 
@@ -30,16 +30,13 @@ export default class Block<P = any> {
 
 	protected state: any = {};
 
-	protected refs: { [key: string]: Block } = {};
+	// Todo: Сделать защищенным
+	protected refs: { [key: string]: any } = {};
 
 	static componentName: string;
 
 	public constructor(props?: P) {
 		const eventBus = new EventBus<Events>();
-
-		this._meta = {
-			props,
-		};
 
 		this.getStateFromProps(props);
 
@@ -53,10 +50,26 @@ export default class Block<P = any> {
 		eventBus.emit(Block.EVENTS.INIT, this.props);
 	}
 
+	getRefs() {
+		return this.refs;
+	}
+
+	private _checkInDom() {
+		const elementInDOM = document.body.contains(this._element);
+
+		if (elementInDOM) {
+			setTimeout(() => this._checkInDom(), 1000);
+			return;
+		}
+
+		this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+	}
+
 	_registerEvents(eventBus: EventBus<Events>) {
 		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+		eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
 	}
 
@@ -74,10 +87,18 @@ export default class Block<P = any> {
 	}
 
 	_componentDidMount(props: P) {
+		this._checkInDom();
 		this.componentDidMount(props);
 	}
 
 	componentDidMount(props: P) {}
+
+	_componentWillUnmount() {
+		this.eventBus().destroy();
+		this.componentWillUnmount();
+	}
+
+	componentWillUnmount() {}
 
 	_componentDidUpdate(oldProps: P, newProps: P) {
 		const response = this.componentDidUpdate(oldProps, newProps);
@@ -91,7 +112,7 @@ export default class Block<P = any> {
 		return true;
 	}
 
-	setProps = (nextProps: P) => {
+	setProps = (nextProps: Partial<P>) => {
 		if (!nextProps) {
 			return;
 		}
@@ -120,7 +141,10 @@ export default class Block<P = any> {
 		this._element!.replaceWith(newElement);
 
 		this._element = newElement as HTMLElement;
-		this._addEvents();
+		const input = this._element.querySelector('input');
+		const textarea = this._element.querySelector('textarea');
+
+		this._addEvents(input ?? textarea);
 	}
 
 	protected render(): string {
@@ -184,16 +208,22 @@ export default class Block<P = any> {
 		});
 	}
 
-	_addEvents() {
-		const { events } = this.props as any;
+	_addEvents(input: HTMLElement | null) {
+		const { events }: Record<string, () => void> = this.props as any;
 
 		if (!events) {
 			return;
 		}
 
-		Object.entries(events).forEach(([event, listener]) => {
-			this._element!.addEventListener(event, listener as EventListenerOrEventListenerObject);
-		});
+		if (input) {
+			Object.entries(events).forEach(([event, listener]) => {
+				input.addEventListener(event, listener);
+			});
+		} else {
+			Object.entries(events).forEach(([event, listener]) => {
+				this._element!.addEventListener(event, listener);
+			});
+		}
 	}
 
 	_compile(): DocumentFragment {
@@ -254,7 +284,7 @@ export default class Block<P = any> {
 	}
 
 	show() {
-		this.getContent().style.display = 'block';
+		this.getContent().style.display = 'flex';
 	}
 
 	hide() {

@@ -12,6 +12,7 @@ export interface InputProps {
 	error?: string;
 	onBlur?: () => void;
 	onFocus?: () => void;
+	className?: string;
 }
 
 export default class Input extends Block {
@@ -23,6 +24,7 @@ export default class Input extends Block {
 		error,
 		name,
 		placeholder,
+		className,
 		value,
 		onFocus,
 		onBlur,
@@ -30,6 +32,7 @@ export default class Input extends Block {
 		super({
 			type,
 			placeholder,
+			className,
 			value,
 			name,
 			error,
@@ -41,7 +44,7 @@ export default class Input extends Block {
 		// language=hbs
 		return `
         <input 
-		class="input"
+		class="input{{className}}"
 		name={{name}}
 		type="{{type}}" 
 		placeholder="{{placeholder}}" 

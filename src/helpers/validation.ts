@@ -3,9 +3,9 @@ export enum ValidationRule {
 	Login = 'login',
 	Email = 'email',
 	Password = 'password',
-	FirstName = 'firstName',
-	SecondName = 'secondName',
-	display_name = 'display_name',
+	First_name = 'first_name',
+	Second_name = 'second_name',
+	Display_name = 'display_name',
 	Phone = 'phone',
 	Message = 'message',
 }
@@ -81,11 +81,10 @@ export function validationValue(rule: ValidationRule, value: string): string {
 			return 'Password must contain one letter and a number';
 		}
 	}
-	if (rule === ValidationRule.FirstName || rule === ValidationRule.SecondName) {
-		console.log('FirstName');
+	if (rule === ValidationRule.First_name || rule === ValidationRule.Second_name) {
 		if (value.length === 0) {
 			return `${
-				rule === ValidationRule.FirstName ? ValidationRule.FirstName : ValidationRule.SecondName
+				rule === ValidationRule.First_name ? ValidationRule.First_name : ValidationRule.Second_name
 			} can not be empty`;
 		}
 		if (!validFieldFirstAndSecondName.test(value)) {
@@ -104,8 +103,18 @@ export function validationValue(rule: ValidationRule, value: string): string {
 		if (value.length === 0) {
 			return 'Phone can not be empty';
 		}
-		if (!validPhoneReg.test.value) {
+		if (!validPhoneReg.test(value)) {
 			return 'Phone can only contain 10-15 digits, can start with +';
+		}
+	}
+	if (rule === ValidationRule.Display_name) {
+		if (value.length === 0) {
+			return 'Display Name can not be empty';
+		}
+	}
+	if (rule === ValidationRule.Message) {
+		if (value.length === 0) {
+			return 'Enter the Message';
 		}
 	}
 	return '';

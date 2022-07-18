@@ -1,23 +1,22 @@
 import { Block } from 'core';
-import {
-	validFieldFirstAndSecondName,
-	ValidationEmail,
-	validEmailReg,
-	ValidationFirstAndSecondName,
-	ValidationLogin,
-	ValidationPhone,
-	validPhoneReg,
-	validLoginReg,
-	ValidationRule,
-	validationValue,
-} from 'helpers/validation';
+import { BrowserRouter } from 'core/BrowserRouter';
+import { Store } from 'core/Store';
+import { withRouter } from 'core/withRouter';
+import { withStore } from 'core/withStore';
+import { ValidationRule, validationValue } from 'helpers/validation';
+import { getUser } from '../../../../services/auth';
+import { changeUserInfo } from '../../../../services/user';
 import '../../profile.scss';
 
-type EditProfilePageProps = {};
-export default class EditProfilePage extends Block {
+export interface UpdateUserInfoProps {
+	router: BrowserRouter;
+	store: Store<AppState>;
+	_editData: () => void;
+}
+class EditProfilePage extends Block<UpdateUserInfoProps> {
 	static componentName = 'EditProfilePage';
 
-	constructor(props: EditProfilePageProps) {
+	constructor(props: UpdateUserInfoProps) {
 		super({
 			...props,
 			_editData: () => {
@@ -29,6 +28,7 @@ export default class EditProfilePage extends Block {
 					inputs.forEach((input) => {
 						const { name, value } = input;
 						const ucFirst = name[0].toUpperCase() + name.slice(1);
+						console.log(ucFirst);
 						const errorMessage = validationValue(
 							ValidationRule[ucFirst as keyof typeof ValidationRule],
 							value,
@@ -36,20 +36,56 @@ export default class EditProfilePage extends Block {
 						if (errorMessage) {
 							isValid = false;
 							console.log('message');
-							this.refs[name].refs.error.setProps({ text: errorMessage });
+							this.refs[name].getRefs().error.setProps({ text: errorMessage });
 						} else {
-							data[ucFirst] = value;
+							data[name] = value;
 						}
 					});
 					if (isValid) {
-						console.log(data);
+						this.props.store.dispatch(changeUserInfo, data);
 					}
 				}
 			},
 		});
+		if (!this.props.store.getState().user) {
+			this.props.store.dispatch(getUser);
+		}
+	}
+
+	protected getStateFromProps(props: any): void {
+		this.state = {
+			values: {
+				login: '',
+				email: '',
+				first_name: '',
+				second_name: '',
+				display_name: '',
+				phone: '',
+			},
+		};
+	}
+
+	componentDidMount(): void {
+		const { user } = this.props.store.getState();
+		if (user) {
+			const { login, email, displayName, firstName, secondName, phone } = user;
+			console.log(user);
+			this.setState({
+				values: {
+					login,
+					email,
+					first_name: firstName,
+					second_name: secondName,
+					display_name: displayName || '',
+					phone,
+				},
+			});
+		}
 	}
 
 	render() {
+		const { values } = this.state;
+		console.log('Values', values);
 		return `
         <div>
         <nav class="side-nav">
@@ -59,50 +95,67 @@ export default class EditProfilePage extends Block {
     </nav>
         {{#Layout name="EditProfilePage" fullScreen=true}}
         <h1>Edit Profile</h1>
-        <div class="profile-screen">
-        <div class="profile-screen__header user-profile">
-          <div class="user-profile__avatar"></div>
           <div class="profile-screen__content">
           <form class='form'>
   {{{ControlledInput
-	ref="firstName"
-	id="firstName" 
+	label="First name"
+	ref="first_name"
+	id="first_name" 
 	type="text"
-	name="firstName"
-	validationRule="${ValidationRule.FirstName}"
+	name="first_name"
+	validationRule="${ValidationRule.First_name}"
 	placeholder="First name"
+	value="${values.first_name}"
   }}}
   {{{ControlledInput
-	ref="secondName"
-	id="secondName" 
+	label="Second name"
+	ref="second_name"
+	id="second_name" 
 	type="text"
-	name="secondName"
-	validationRule="${ValidationRule.SecondName}"
+	name="second_name"
+	validationRule="${ValidationRule.Second_name}"
 	placeholder="Second name"
+	value="${values.second_name}"
   }}}
   {{{ControlledInput
+	label="Login"
 	ref="login"
 	id="login" 
 	type="text"
 	name="login"
 	validationRule="${ValidationRule.Login}"
 	placeholder="Login"
+	value="${values.login}"
   }}}
   {{{ControlledInput
+	label="Email"
 	ref="email"
 	id="email" 
 	type="text"
 	name="email"
 	validationRule="${ValidationRule.Email}"
 	placeholder="Email"
+	value="${values.email}"
   }}}
   {{{ControlledInput
+	label="Display Name"
+	ref="display_name"
+	id="display_name" 
+	type="text"
+	name="display_name"
+	validationRule="${ValidationRule.Display_name}"
+	placeholder="display_name"
+	value="${values.display_name}"
+  }}}
+  {{{ControlledInput
+	label="Phone"
 	ref="phone"
 	id="phone" 
 	type="text"
 	name="phone"
 	validationRule="${ValidationRule.Phone}"
 	placeholder="Phone"
+	value="${values.phone}"
   }}}
   {{{Button
     text="Save"
@@ -117,3 +170,5 @@ export default class EditProfilePage extends Block {
         `;
 	}
 }
+
+export default withRouter(withStore(EditProfilePage));

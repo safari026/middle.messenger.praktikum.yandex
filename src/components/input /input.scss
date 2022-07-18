@@ -7,3 +7,22 @@
 	border: 0;
 	margin-bottom: 5px;
 }
+.input__message-input{
+	width: 100%;
+    height: 32px;
+    background-color: var(--lightGray);
+    border: none;
+    border-radius: 30px;
+    padding: 0 30px;
+    margin: 0 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    outline: none;
+    word-break: break-word;
+  
+    &::placeholder {
+      color: var(--gray);
+    }
+}

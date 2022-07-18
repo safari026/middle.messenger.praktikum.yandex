@@ -1,6 +1,5 @@
 import { Button } from 'components/button';
 import { ChatButton } from 'components/chat/chat-button';
-import { ChatFeed } from 'components/chat/chat-feed';
 import { ChatMessage } from 'components/chat/chat-message';
 import { ControlledInput } from 'components/controlled-input';
 import { ErrorMessage } from 'components/error';
@@ -9,53 +8,60 @@ import { Layout } from 'components/layout';
 import { LayoutChats } from 'components/layout-chats';
 import { Link } from 'components/link';
 import { registerComponent, renderDOM } from 'core';
-import { ChatPage } from 'pages/chats';
-import { NotFoundPage, ServerErrorPage } from 'pages/errors';
-import { LoginPage } from 'pages/login';
-import { OnboardingPage } from 'pages/onboarding';
-import { EditPasswordPage, EditProfilePage, ProfilePage } from 'pages/profile';
+import { BrowserRouter } from 'core/BrowserRouter';
+import { BlockConstructable } from 'core/registerComponent';
+import { Store } from 'core/Store';
+import { getScreenComponent } from 'core/screenList';
 import { SignInPage } from 'pages/sign-in';
+import { SignUpPage } from 'pages/sign-up';
+import { EditPasswordPage, EditProfilePage, ProfilePage } from 'pages/profile';
+import { InputFile } from 'components/input-file';
+import { UserAvatar } from 'components/user-avatar';
+import { ChatPage } from 'pages/chats';
+import { defaultState } from './store/index';
 
-import { ROUTE_PAGES } from 'types/configRouting';
+const components: BlockConstructable[] = [
+	Input,
+	Button,
+	Layout,
+	Link,
+	ChatButton,
+	ChatMessage,
+	LayoutChats,
+	ControlledInput,
+	ErrorMessage,
+	InputFile,
+	UserAvatar,
+];
+components.forEach((component) => {
+	registerComponent(component);
+});
+declare global {
+	interface Window {
+		router: BrowserRouter;
+		store: Store<AppState>;
+	}
+}
+const router = new BrowserRouter();
+const store = new Store<AppState>(defaultState);
 
-registerComponent(Input);
-registerComponent(Button);
-registerComponent(Layout);
-registerComponent(Link);
-registerComponent(ChatButton);
-registerComponent(ChatFeed);
-registerComponent(ChatMessage);
-registerComponent(LayoutChats);
-registerComponent(ControlledInput);
-registerComponent(ErrorMessage);
-
-document.addEventListener('DOMContentLoaded', () => {
-	switch (document.location.pathname) {
-		case ROUTE_PAGES.LOGIN:
-			renderDOM(LoginPage);
-			break;
-		case ROUTE_PAGES.SIGN_IN:
-			renderDOM(SignInPage);
-			break;
-		case ROUTE_PAGES.CHAT:
-			renderDOM(ChatPage);
-			break;
-		case ROUTE_PAGES.PROFILE:
-			renderDOM(ProfilePage);
-			break;
-		case ROUTE_PAGES.EDIT_PROFILE:
-			renderDOM(EditProfilePage);
-			break;
-		case ROUTE_PAGES.EDIT_PASSWORD:
-			renderDOM(EditPasswordPage);
-			break;
-		case ROUTE_PAGES.NOT_FOUND:
-			renderDOM(NotFoundPage);
-			break;
-		case ROUTE_PAGES.SERVER_ERROR:
-			renderDOM(ServerErrorPage);
-			break;
-		default:
-			renderDOM(OnboardingPage);
+window.router = router;
+window.store = store;
+console.log(window.store);
+store.on('changed', (prevState, nextState) => {
+	console.log(window.store);
+	if (prevState.screen !== nextState.screen) {
+		const Page = getScreenComponent(nextState.screen);
+		renderDOM(new Page());
 	}
 });
+
+router
+	.use('/', SignInPage, {})
+	.use('/sign-in', SignInPage, {})
+	.use('/sign-up', SignUpPage, {})
+	.use('/chats', ChatPage, {})
+	.use('/profile', ProfilePage, {})
+	.use('/update-user-info', EditProfilePage, {})
+	.use('/update-user-password', EditPasswordPage, {})
+	.start();
