@@ -32,7 +32,6 @@ export default class ControlledInput extends Block {
 				}
 			},
 		});
-		console.log(this.element);
 	}
 
 	protected render(): string {

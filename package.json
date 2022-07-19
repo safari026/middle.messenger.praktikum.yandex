@@ -15,7 +15,10 @@
 		"pages": "./src/pages",
 		"components": "./src/components",
 		"types": "./src/types",
-		"helpers": "./src/helpers"
+		"helpers": "./src/helpers",
+		"utils": "./src/utils",
+		"services": "./src/services",
+		"api": "./src/api"
 	},
 	"repository": {
 		"type": "git",

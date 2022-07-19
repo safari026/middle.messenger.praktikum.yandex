@@ -4,8 +4,9 @@ import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
-import { getUser } from '../../../../services/auth';
-import { changeUserInfo } from '../../../../services/user';
+import { getUser } from 'services/auth';
+import { changeUserInfo } from 'services/user';
+
 import '../../profile.scss';
 
 export interface UpdateUserInfoProps {
@@ -28,14 +29,12 @@ class EditProfilePage extends Block<UpdateUserInfoProps> {
 					inputs.forEach((input) => {
 						const { name, value } = input;
 						const ucFirst = name[0].toUpperCase() + name.slice(1);
-						console.log(ucFirst);
 						const errorMessage = validationValue(
 							ValidationRule[ucFirst as keyof typeof ValidationRule],
 							value,
 						);
 						if (errorMessage) {
 							isValid = false;
-							console.log('message');
 							this.refs[name].getRefs().error.setProps({ text: errorMessage });
 						} else {
 							data[name] = value;
@@ -69,7 +68,6 @@ class EditProfilePage extends Block<UpdateUserInfoProps> {
 		const { user } = this.props.store.getState();
 		if (user) {
 			const { login, email, displayName, firstName, secondName, phone } = user;
-			console.log(user);
 			this.setState({
 				values: {
 					login,
@@ -85,7 +83,6 @@ class EditProfilePage extends Block<UpdateUserInfoProps> {
 
 	render() {
 		const { values } = this.state;
-		console.log('Values', values);
 		return `
         <div>
         <nav class="side-nav">

@@ -18,6 +18,7 @@ import { EditPasswordPage, EditProfilePage, ProfilePage } from 'pages/profile';
 import { InputFile } from 'components/input-file';
 import { UserAvatar } from 'components/user-avatar';
 import { ChatPage } from 'pages/chats';
+import { NotFoundPage, ServerErrorPage } from 'pages/errors';
 import { defaultState } from './store/index';
 
 const components: BlockConstructable[] = [
@@ -47,9 +48,8 @@ const store = new Store<AppState>(defaultState);
 
 window.router = router;
 window.store = store;
-console.log(window.store);
+
 store.on('changed', (prevState, nextState) => {
-	console.log(window.store);
 	if (prevState.screen !== nextState.screen) {
 		const Page = getScreenComponent(nextState.screen);
 		renderDOM(new Page());
@@ -64,4 +64,6 @@ router
 	.use('/profile', ProfilePage, {})
 	.use('/update-user-info', EditProfilePage, {})
 	.use('/update-user-password', EditPasswordPage, {})
+	.use('/server-error', ServerErrorPage, {})
+	.use('*', NotFoundPage, {})
 	.start();

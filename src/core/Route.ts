@@ -1,9 +1,6 @@
+import { isEqualTo } from 'utils/isEqual';
 import Block from './Block';
 import renderDOM from './renderDOM';
-
-function isEqual(value1: string, value2: string) {
-	return value1 === value2;
-}
 
 export class Route {
 	protected _pathname;
@@ -34,7 +31,7 @@ export class Route {
 	}
 
 	match(pathname: string) {
-		return isEqual(pathname, this._pathname);
+		return isEqualTo(pathname, this._pathname);
 	}
 
 	render() {

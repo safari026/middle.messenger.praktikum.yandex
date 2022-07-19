@@ -21,7 +21,6 @@ export class BrowserRouter {
 	}
 
 	use(pathname: string, block: any, props: any) {
-		console.log('use', pathname, block, props);
 		const route = new Route(pathname, block, props);
 		this.routes.push(route);
 		return this;
@@ -40,7 +39,6 @@ export class BrowserRouter {
 			return;
 		}
 		if (this._currentRoute && this._currentRoute !== route) {
-			console.log('CurrentRoute');
 			this._currentRoute.leave();
 		}
 		this._currentRoute = route;

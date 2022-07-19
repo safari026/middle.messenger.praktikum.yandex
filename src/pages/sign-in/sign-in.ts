@@ -4,7 +4,8 @@ import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
-import { logout, sendLoginData } from '../../services/auth';
+import { sendLoginData } from 'services/auth';
+
 import './sign-in.scss';
 
 interface SignInPageProps {
@@ -12,7 +13,6 @@ interface SignInPageProps {
 	store: Store<AppState>;
 	_sendLoginData: () => void;
 	formError?: () => string | null;
-	onLogout?: () => void;
 }
 class SignInPage extends Block<SignInPageProps> {
 	static componentName = 'SignInPageProps';
@@ -20,9 +20,6 @@ class SignInPage extends Block<SignInPageProps> {
 	constructor(props: SignInPageProps) {
 		super({
 			...props,
-			onLogout: () => {
-				this.props.store.dispatch(logout);
-			},
 			_sendLoginData: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
@@ -44,7 +41,6 @@ class SignInPage extends Block<SignInPageProps> {
 						}
 					});
 					if (isValid) {
-						console.log(data);
 						this.props.store.dispatch(sendLoginData, data);
 					}
 				}
@@ -85,9 +81,6 @@ class SignInPage extends Block<SignInPageProps> {
   {{{Error text=formError}}}
   {{{Button
     text="Authorization" className="__button"  onClick=_sendLoginData
-  }}}
-  {{{Button
-    text="Log out" className="__button"  onClick=onLogout
   }}}
   {{{Link to="/sign-up" text="No account?"}}}
 </form>

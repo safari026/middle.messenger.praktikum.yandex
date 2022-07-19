@@ -1,5 +1,5 @@
-import { hasError } from 'core/apiHasError';
-import { transformUser } from 'core/apiTransformers';
+import { hasError } from 'utils/apiHasError';
+import { transformUser } from 'utils/apiTransformers';
 import { Dispatch } from 'core/Store';
 import { authAPI, NewUser } from '../api/auth';
 
@@ -26,9 +26,7 @@ export const sendLoginData = async (
 	dispatch({ isLoading: true });
 
 	const response = await authAPI.login(action);
-	console.log('response', response);
 	if (hasError(response)) {
-		console.log('hasError');
 		dispatch({
 			isLoading: false,
 			loginFormError: JSON.parse(response.response).reason,
@@ -56,7 +54,6 @@ export const sendRegisterData = async (
 	action: NewUser,
 ) => {
 	dispatch({ isLoading: true });
-	console.log('Action', action);
 	const response = await authAPI.register(action);
 
 	if (hasError(response)) {

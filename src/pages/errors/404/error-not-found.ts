@@ -11,7 +11,7 @@ export default class NotFoundPage extends Block {
   <h3 class="error-page__title">404</h3>
   <div class="error-page__text">Ведутся работы</div>
   <div class="error-page__link">
-  {{{Link to='/chat' text="Назад к чатам"}}}
+  {{{Link to='/chats' text="Назад к чатам"}}}
   </div>
   
   </div>`;

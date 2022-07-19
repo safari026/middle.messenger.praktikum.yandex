@@ -4,7 +4,7 @@ import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
-import { changePassword } from '../../../../services/user';
+import { changePassword } from 'services/user';
 import '../../profile.scss';
 
 interface UpdateUserPasswordProps {

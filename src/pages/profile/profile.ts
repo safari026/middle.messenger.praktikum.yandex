@@ -1,11 +1,12 @@
-import { Block, registerComponent } from 'core';
+import { Block } from 'core';
 import { BrowserRouter } from 'core/BrowserRouter';
-import { getUserInfoRows } from 'core/getUserInfoRows';
+import { getUserInfoRows } from 'utils/getUserInfoRows';
 import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
-import { getUser, logout } from '../../services/auth';
+
 import './profile.scss';
+import { getUser, logout } from 'services/auth';
 
 interface UserProfileProps {
 	router: BrowserRouter;

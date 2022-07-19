@@ -142,9 +142,8 @@ export default class Block<P = any> {
 
 		this._element = newElement as HTMLElement;
 		const input = this._element.querySelector('input');
-		const textarea = this._element.querySelector('textarea');
 
-		this._addEvents(input ?? textarea);
+		this._addEvents(input);
 	}
 
 	protected render(): string {

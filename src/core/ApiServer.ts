@@ -42,7 +42,6 @@ export default class HTTPTransport {
 	};
 
 	request = (url: string, options: TRequestOptions, timeout = 5000): Promise<XMLHttpRequest> => {
-		console.log('Options data.', options.data);
 		const {
 			method = METHODS.GET,
 			headers = { 'Content-Type': 'application/json' },

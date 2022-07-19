@@ -1,13 +1,6 @@
 import Block from 'core/Block';
 import './chat-message.scss';
 
-type ChatMessageProps = {
-	messageText?: string;
-	messageTime?: string;
-	isMessageMine?: boolean;
-	messageImage?: string;
-};
-
 export default class ChatMessage extends Block {
 	static componentName = 'ChatMessage';
 

@@ -4,7 +4,8 @@ import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
-import { sendRegisterData } from '../../services/auth';
+import { sendRegisterData } from 'services/auth';
+
 import './sign-up.scss';
 
 export interface SignUpPageProps {
@@ -28,7 +29,6 @@ class SignUpPage extends Block<SignUpPageProps> {
 					inputs.forEach((input) => {
 						const { name, value } = input;
 						const ucFirst = name[0].toUpperCase() + name.slice(1);
-						console.log(ucFirst);
 						const errorMessage = validationValue(
 							ValidationRule[ucFirst as keyof typeof ValidationRule],
 							value,
@@ -41,7 +41,6 @@ class SignUpPage extends Block<SignUpPageProps> {
 						}
 					});
 					if (isValid) {
-						console.log(data);
 						this.props.store.dispatch(sendRegisterData, data);
 					}
 				}

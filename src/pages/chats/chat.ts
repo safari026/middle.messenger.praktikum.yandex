@@ -5,10 +5,18 @@ import { withStore } from 'core/withStore';
 import { BrowserRouter } from 'core/BrowserRouter';
 import { Store } from 'core/Store';
 import { ValidationRule, validationValue } from 'helpers/validation';
-import { mockMessage } from '../../../static/data/chats';
-import { mockAvatar } from '../../../static/data/user';
+import { getUser } from 'services/auth';
+import {
+	addUserToChat,
+	createChat,
+	getChats,
+	getChatToken,
+	getChatUsers,
+	removeChat,
+	removeUserFromChat,
+} from 'services/chats';
+import { transformUser } from 'utils/apiTransformers';
 
-const profileLinkArrow = '../../../static/icons/profileLinkArrow.svg';
 export interface ChatsProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
@@ -16,14 +24,12 @@ export interface ChatsProps {
 class ChatPage extends Block<ChatsProps> {
 	static componentName = 'ChatPage';
 
-	constructor(props: ChatsProps) {
-		super(props);
-
-		// this.props.store.dispatch(getChats);
-		// this.props.store.dispatch(getUser);
+	componentDidMount() {
+		this.props.store.dispatch(getChats);
+		this.props.store.dispatch(getUser);
 	}
 
-	protected getStateFromProps(props: any): void {
+	protected getStateFromProps(): void {
 		this.state = {
 			showAddChatModal: false,
 			showAddUserModal: false,
@@ -33,38 +39,113 @@ class ChatPage extends Block<ChatsProps> {
 				title: '',
 				id: '',
 			},
-			values: {
-				message: '',
-			},
-			errors: {
-				message: '',
-			},
-			sendMessage: (e: SubmitEvent) => {
+			sendMessage: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
+				const data: Record<string, string> = {};
 				if (inputs) {
 					inputs.forEach((input) => {
 						const { name, value } = input;
 						const ucFirst = name[0].toUpperCase() + name.slice(1);
-						console.log(ucFirst);
 						const errorMessage = validationValue(
 							ValidationRule[ucFirst as keyof typeof ValidationRule],
 							value,
 						);
 						if (errorMessage) {
-							console.log('Erros');
 							isValid = false;
-							this.state.errors.message = errorMessage;
+							this.refs[name].getRefs().error.setProps({ text: errorMessage });
+						} else {
+							data[name] = value;
 						}
 					});
+					if (isValid) {
+						this.props.store.getState().socket?.send(
+							JSON.stringify({
+								content: data.message,
+								type: 'message',
+							}),
+						);
+						this.setState({ ...this.state, message: '' });
+					}
 				}
-				this.setState({ ...this.state });
 			},
 			onAddChat: () => {
 				this.setState({
 					showAddChatModal: true,
 				});
+			},
+			onConfirmAddChat: () => {
+				const { input } = this.refs.chatName.getRefs();
+				const { value } = input.element;
+				if (value) {
+					this.props.store.dispatch(createChat, {
+						title: value,
+					});
+
+					this.setState({
+						showAddChatModal: false,
+					});
+				}
+			},
+			onAddUserToChat: () => {
+				const {
+					showAddUserModal,
+					selectedChat: { id },
+				} = this.state;
+				const { input } = this.refs.loginName.getRefs();
+				const { value } = input.element;
+				if (showAddUserModal && value) {
+					this.props.store.dispatch(addUserToChat, {
+						login: value,
+						chatId: id,
+					});
+					this.setState({
+						isVisibleMenu: false,
+					});
+				}
+				this.setState({
+					showAddUserModal: !this.state.showAddUserModal,
+				});
+			},
+			onSelectChat: (e: Event) => {
+				const { chatId } = (e.currentTarget as HTMLElement).dataset;
+				const { chats } = this.props.store.getState();
+				if (chatId) {
+					const selectedChat = chats.find(({ id }: { id: number }) => id === +chatId);
+					this.props.store.dispatch(getChatUsers, { chatId: +chatId });
+					if (selectedChat) {
+						const { title, id } = selectedChat;
+
+						this.setState({
+							selectedChat: {
+								title,
+								id,
+							},
+						});
+						this.props.store.dispatch(getChatToken, { chatId: id });
+					}
+				}
+			},
+			onRemoveChat: () => {
+				const { id } = this.state.selectedChat;
+				if (id) {
+					this.props.store.dispatch(removeChat, {
+						chatId: id,
+					});
+
+					setTimeout(() => {
+						const { chats } = this.props.store.getState();
+						this.props.store.dispatch(getChatUsers, { chatId: chats[0].id });
+						this.setState({
+							selectedChat: {
+								title: chats[0].title,
+								id: chats[0].id,
+							},
+							isVisibleMenu: false,
+						});
+					}, 200);
+				}
 			},
 			onToggleMenu: () => {
 				this.setState({
@@ -92,6 +173,15 @@ class ChatPage extends Block<ChatsProps> {
 					isVisibleMenu: false,
 				});
 			},
+			onRemoveUserFromChat: () => {
+				const deleteDivButton: HTMLElement | null = document.querySelector('[data-user-id]');
+				if (deleteDivButton) {
+					this.props.store.dispatch(removeUserFromChat, {
+						userId: deleteDivButton.dataset.userId as string,
+						chatId: this.state.selectedChat.id,
+					});
+				}
+			},
 		};
 	}
 
@@ -102,9 +192,8 @@ class ChatPage extends Block<ChatsProps> {
 			isVisibleMenu,
 			showChatUsers,
 			selectedChat: { title },
-			errors: { message },
 		} = this.state;
-		console.log('Message', message);
+		const { chats, chatUsers, user, chatMessages } = this.props.store.getState();
 		return `
     {{#LayoutChats}}
     <div class="modal"  style="display: ${showAddChatModal ? 'flex' : 'none'}">
@@ -121,10 +210,10 @@ class ChatPage extends Block<ChatsProps> {
           </div>
       <div class="modal__controls">
         {{{Button
-          text="Добавить чат" className="__button" onClick=_sendRegistrationData
+          text="Добавить чат" className="__button" onClick=onConfirmAddChat
         }}}
         {{{Button
-          text="Отмена" className="__button" onClick=onCancelAddChat
+          text="Отмена" className="__button warning" onClick=onCancelAddChat
         }}}
       </div>
       </div>
@@ -151,7 +240,7 @@ class ChatPage extends Block<ChatsProps> {
           {{{Button
             text="Отмена"
             onClick=onCancelAddUser
-            className="__button"
+            className="__button warning"
           }}}
           </div>
         </div>
@@ -160,6 +249,37 @@ class ChatPage extends Block<ChatsProps> {
     <div class="modal__user-list">
     <div class="modal__user-list_title">
    <span>Участники чата</span>
+   <ul class="chat-users-list">
+   ${chatUsers
+			.map((user) => transformUser(user))
+			.map(
+				({ firstName, secondName, id }) => `
+   
+   <li class="chat-users-list-item">
+   <div class="chat-users-list-fullname">
+     <span>${secondName}</span>
+     <span>${firstName}</span>
+   </div>
+   
+     ${
+				id !== user?.id
+					? `
+          <div class="chat-users-list-remove-button"  data-user-id="${id}">
+          {{{Button
+      text="X"
+       className="__transparent"
+       onClick=onRemoveUserFromChat
+     }}}
+     </div>
+     `
+					: ''
+			}
+   
+ </li>
+`,
+			)
+			.join('')}
+   </ul>
     </div>
     {{{Button
       text="X"
@@ -185,13 +305,19 @@ class ChatPage extends Block<ChatsProps> {
           </div>
           <div class="chats__list">
           <div class="chats__chatList">
-            {{{ChatButton
-              avatar=""
-              title="Привет"
-              subtitle="Здесь чат"
-              time="10:59"
-              id="3434"
-            }}}
+          ${chats
+						.map(({ title, id }: { title: string; id: number }) => {
+							return `
+              {{{ChatButton
+                avatar=""
+                title="${title}"
+                subtitle="Здесь чат"
+                time="10:59"
+                id="${id}"
+                onClick=onSelectChat
+              }}}`;
+						})
+						.join('')}
           </div>
           </div>
         </section>  
@@ -202,11 +328,16 @@ class ChatPage extends Block<ChatsProps> {
                 <div class="chatFeed__title_subtitle">
                   <span class="chatFeed__title">${title || 'Выберите чат для общения'}</span>
                   <div class="chatFeed__subtitle_wrapper">
-                  {{{Button
-                    text="3 участников"
-                    className="__transparent"
-                    onClick=onShowChatUsers
-                  }}}
+                 ${
+										chatUsers.length > 0
+											? ` {{{Button
+                  text="${chatUsers.length} участника"
+                  className="__transparent"
+                  onClick=onShowChatUsers
+                }}}`
+											: ''
+									}
+                 
                   </div>
                 </div>
               </div>
@@ -214,7 +345,7 @@ class ChatPage extends Block<ChatsProps> {
                 className="__buttonConfig"
                 onClick=onToggleMenu
               }}}
-              <div class="corresp-header-options-menu" style="display: ${
+              <div class="chatFeed__header-options-menu" style="display: ${
 								isVisibleMenu ? 'flex' : 'none'
 							}">
               {{{Button
@@ -229,7 +360,16 @@ class ChatPage extends Block<ChatsProps> {
               }}}
               </div>
             </div>
-            <div class="chatFeed__feed"></div>
+            <div class="chatFeed__feed">
+            ${chatMessages
+							.map(
+								({ message, userId }) =>
+									`
+                 {{{ChatMessage messageText="${message}" isMessageMine=${user?.id === userId}}}}
+                `,
+							)
+							.join('')}
+            </div>
             <footer class="chatFeed__footer">
             {{{Button
               className="__buttonAttachment"

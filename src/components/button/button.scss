@@ -38,7 +38,7 @@
 .button__buttonConfig {
 	width: 34px;
 	height: 34px;
-	background-color: #fff;
+	background-color: var(--white-color);
 	border: none;
 	background-image: url(../../../static/icons/chatButtonConfig.svg);
 	background-repeat: no-repeat;
@@ -49,31 +49,38 @@
 	}
 }
 .button__buttonAttachment {
-    width: 34px;
-    height: 34px;
-    background-color: var(--white-color);
-    border: none;
-    background-image: url(../../../static/icons/chatButtonAttachment.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
+	width: 34px;
+	height: 34px;
+	background-color: var(--white-color);
+	border: none;
+	background-image: url(../../../static/icons/chatButtonAttachment.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
 .button__buttonSend {
-    width: 28px;
-    height: 28px;
-    background-color: #fff;
-    border: none;
-    background-image: url(../../../static/icons/buttonIconArrow.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    transform: rotate(180deg);
-    padding: 0;
-  
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  .danger {
+	width: 28px;
+	height: 28px;
+	background-color: var(--white-color);
+	border: none;
+	background-image: url(../../../static/icons/buttonIconArrow.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	transform: rotate(180deg);
+	padding: 0;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+.danger {
 	color: var(--error-color);
-  }
+}
+.warning {
+	background-color: var(--error-color);
+
+	&:hover {
+		background-color: var(--dark-error-color);
+	}
+}

@@ -3,7 +3,7 @@ import { BrowserRouter } from 'core/BrowserRouter';
 import { Store } from 'core/Store';
 import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
-import { changeAvatar } from '../../services/user';
+import { changeAvatar } from 'services/user';
 
 export interface UserAvatarProps {
 	image: string;

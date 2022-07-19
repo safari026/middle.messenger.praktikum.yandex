@@ -23,7 +23,6 @@ export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<P>)
 		};
 
 		componentDidMount(props: P) {
-			console.log('Hello');
 			super.componentDidMount(props);
 			window.store.on('changed', this.__onChangeStoreCallback);
 		}
