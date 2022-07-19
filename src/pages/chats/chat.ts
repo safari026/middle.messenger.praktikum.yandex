@@ -198,22 +198,23 @@ class ChatPage extends Block<ChatsProps> {
     {{#LayoutChats}}
     <div class="modal"  style="display: ${showAddChatModal ? 'flex' : 'none'}">
       <div class="modal__content">
-        <span class="modal__title">Выберите название чата</span>
+        <span class="modal__title">Choose a chat name</span>
           <div class="modal__input">
             {{{
               ControlledInput
               ref="chatName"
               id="chatName"
               type="text"
+			  placeholder="Enter the name of chat room"
               name="chatName"
             }}}
           </div>
       <div class="modal__controls">
         {{{Button
-          text="Добавить чат" className="__button" onClick=onConfirmAddChat
+          text="Add chat" className="__button" onClick=onConfirmAddChat
         }}}
         {{{Button
-          text="Отмена" className="__button warning" onClick=onCancelAddChat
+          text="Cancel" className="__button warning" onClick=onCancelAddChat
         }}}
       </div>
       </div>
@@ -222,23 +223,23 @@ class ChatPage extends Block<ChatsProps> {
     style="display: ${showAddUserModal ? 'flex' : 'none'}"
     >
         <div class="modal__content">
-        <span class="modal__title">Введите логин пользователя</span>
+        <span class="modal__title">Enter user login</span>
           <div class="modal__input">
           {{{ControlledInput
             name="loginName"
             type="text"
-            placeholder="Добавить пользователя"
+            placeholder="Enter of user"
             ref="loginName"
           }}}
           </div>
           <div class="modal__controls">
           {{{Button
-            text="Добавить"
+            text="Add user in chat"
             className="__button"
             onClick=onAddUserToChat
           }}}
           {{{Button
-            text="Отмена"
+            text="Cancel"
             onClick=onCancelAddUser
             className="__button warning"
           }}}
@@ -248,7 +249,7 @@ class ChatPage extends Block<ChatsProps> {
     <div class="modal" style="display: ${showChatUsers ? 'flex' : 'none'}">
     <div class="modal__user-list">
     <div class="modal__user-list_title">
-   <span>Участники чата</span>
+   <span>Сhat room members</span>
    <ul class="chat-users-list">
    ${chatUsers
 			.map((user) => transformUser(user))
@@ -292,7 +293,7 @@ class ChatPage extends Block<ChatsProps> {
     <div>
           <div class="chats__profileLinkContainer">
           {{{Button
-            text="Создать чат"
+            text="Create chat"
             className="__link-view"
             onClick=onAddChat
           }}}
@@ -326,12 +327,12 @@ class ChatPage extends Block<ChatsProps> {
               <div class="chatFeed__userInfo">
               <div class="chatFeed__avatar"></div>
                 <div class="chatFeed__title_subtitle">
-                  <span class="chatFeed__title">${title || 'Выберите чат для общения'}</span>
+                  <span class="chatFeed__title">${title || 'Choose a chat room to chat with'}</span>
                   <div class="chatFeed__subtitle_wrapper">
                  ${
 										chatUsers.length > 0
 											? ` {{{Button
-                  text="${chatUsers.length} участника"
+                  text="${chatUsers.length} members of the chat room"
                   className="__transparent"
                   onClick=onShowChatUsers
                 }}}`
@@ -350,12 +351,12 @@ class ChatPage extends Block<ChatsProps> {
 							}">
               {{{Button
                 className="__link-view"
-                text="Добавить пользователя"
+                text="Add user"
                 onClick=onAddUserToChat
               }}}
               {{{Button
                 className="__link-view danger"
-                text="Удалить чат"
+                text="Delete chat"
                 onClick=onRemoveChat
               }}}
               </div>

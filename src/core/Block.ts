@@ -142,7 +142,6 @@ export default class Block<P = any> {
 
 		this._element = newElement as HTMLElement;
 		const input = this._element.querySelector('input');
-
 		this._addEvents(input);
 	}
 
