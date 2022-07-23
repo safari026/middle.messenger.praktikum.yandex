@@ -5,6 +5,7 @@ import { withRouter } from 'core/withRouter';
 import { withStore } from 'core/withStore';
 import { ValidationRule, validationValue } from 'helpers/validation';
 import { sendLoginData } from 'services/auth';
+import { toUpperCaseFirstLetter } from 'utils/toUpperCaseFirstLetter';
 
 import './sign-in.scss';
 
@@ -28,7 +29,7 @@ class SignInPage extends Block<SignInPageProps> {
 				if (inputs) {
 					inputs.forEach((input) => {
 						const { name, value } = input;
-						const ucFirst = name[0].toUpperCase() + name.slice(1);
+						const ucFirst = toUpperCaseFirstLetter(name);
 						const errorMessage = validationValue(
 							ValidationRule[ucFirst as keyof typeof ValidationRule],
 							value,
