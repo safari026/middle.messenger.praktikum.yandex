@@ -12,7 +12,7 @@ export interface SignUpPageProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
 	formError?: () => string | null;
-	_sendRegistrationData: () => void;
+	sendRegistrationData: () => void;
 }
 class SignUpPage extends Block<SignUpPageProps> {
 	static componentName = 'SignUpPage';
@@ -20,7 +20,7 @@ class SignUpPage extends Block<SignUpPageProps> {
 	constructor(props: SignUpPageProps) {
 		super({
 			...props,
-			_sendRegistrationData: () => {
+			sendRegistrationData: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
@@ -109,7 +109,7 @@ class SignUpPage extends Block<SignUpPageProps> {
   }}}
   {{{Error text=formError}}}
   {{{Button
-    text="Sign Up" className="__button" onClick=_sendRegistrationData
+    text="Sign Up" className="__button" onClick=sendRegistrationData
   }}}
   {{{Link to="/sign-in" text="Sign In"}}}
 </form>

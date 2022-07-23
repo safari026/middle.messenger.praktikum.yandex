@@ -11,7 +11,7 @@ interface UpdateUserPasswordProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
 	changePasswordError: () => string | null;
-	_editPassword: () => void;
+	editPassword: () => void;
 }
 class EditPasswordPage extends Block<UpdateUserPasswordProps> {
 	static componentName = 'EditPasswordPage';
@@ -19,7 +19,7 @@ class EditPasswordPage extends Block<UpdateUserPasswordProps> {
 	constructor(props: UpdateUserPasswordProps) {
 		super({
 			...props,
-			_editPassword: () => {
+			editPassword: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
@@ -99,7 +99,7 @@ placeholder="New Password"
 {{{Button
 text="Save"
 className="__button"
-onClick=_editPassword
+onClick=editPassword
 }}}
 {{/Layout}}
 </div>

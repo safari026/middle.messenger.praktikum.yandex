@@ -22,7 +22,7 @@ export interface UserInfoRow {
 	label: string;
 	value: string | number;
 }
-const defaultImage = '../../../static/icons/chatNoAvatar.svg';
+
 class ProfilePage extends Block<UserProfileProps> {
 	static componentName = 'ProfilePage';
 

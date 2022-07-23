@@ -12,7 +12,7 @@ import '../../profile.scss';
 export interface UpdateUserInfoProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
-	_editData: () => void;
+	editData: () => void;
 }
 class EditProfilePage extends Block<UpdateUserInfoProps> {
 	static componentName = 'EditProfilePage';
@@ -20,7 +20,7 @@ class EditProfilePage extends Block<UpdateUserInfoProps> {
 	constructor(props: UpdateUserInfoProps) {
 		super({
 			...props,
-			_editData: () => {
+			editData: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
@@ -157,7 +157,7 @@ class EditProfilePage extends Block<UpdateUserInfoProps> {
   {{{Button
     text="Save"
 	className="__button"
-	onClick=_editData
+	onClick=editData
   }}}
 </form>
           </div>

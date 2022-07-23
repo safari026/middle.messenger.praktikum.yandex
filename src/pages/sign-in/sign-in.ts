@@ -11,7 +11,7 @@ import './sign-in.scss';
 interface SignInPageProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
-	_sendLoginData: () => void;
+	sendLoginData: () => void;
 	formError?: () => string | null;
 }
 class SignInPage extends Block<SignInPageProps> {
@@ -20,7 +20,7 @@ class SignInPage extends Block<SignInPageProps> {
 	constructor(props: SignInPageProps) {
 		super({
 			...props,
-			_sendLoginData: () => {
+			sendLoginData: () => {
 				const inputs: NodeListOf<HTMLInputElement> | undefined =
 					this.element?.querySelectorAll('input');
 				let isValid = true;
@@ -80,7 +80,7 @@ class SignInPage extends Block<SignInPageProps> {
   }}}	
   {{{Error text=formError}}}
   {{{Button
-    text="Authorization" className="__button"  onClick=_sendLoginData
+    text="Authorization" className="__button"  onClick=sendLoginData
   }}}
   {{{Link to="/sign-up" text="No account?"}}}
 </form>

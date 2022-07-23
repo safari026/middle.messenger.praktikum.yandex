@@ -12,7 +12,7 @@ export interface UserAvatarProps {
 	router: BrowserRouter;
 	store: Store<AppState>;
 }
-const defaultImage = '../../../static/icons/camera-solid.svg';
+
 export type EventsProps = {
 	events: Record<string, ((e?: any) => void) | undefined>;
 };
