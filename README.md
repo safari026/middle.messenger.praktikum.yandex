@@ -8,7 +8,7 @@
 npm lint
 
 Ссылка на netlify - https://wondrous-frangollo-05ff72.netlify.app/
-Ссылка на PR - https://github.com/safari026/middle.messenger.praktikum.yandex/pull/4
+Ссылка на PR - https://github.com/safari026/middle.messenger.praktikum.yandex/pull/5
 
 Юзеры для тестирования
 email:petrsiz@mail.ru
