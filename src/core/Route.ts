@@ -1,7 +1,7 @@
-import { isEqualTo } from 'utils/isEqual';
 import Block from './Block';
 import renderDOM from './renderDOM';
 
+const isEqualTo = (lhs: string, rhs: string): boolean => lhs === rhs;
 export class Route {
 	protected _pathname;
 

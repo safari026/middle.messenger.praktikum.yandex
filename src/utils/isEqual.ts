@@ -1,5 +1,3 @@
-export const isEqualTo = (lhs: string, rhs: string): boolean => lhs === rhs;
-
 const isArray = (value: any): any => {
 	return Array.isArray(value);
 };
