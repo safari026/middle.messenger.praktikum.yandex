@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from '@/core/Block';
 import './layout.scss';
 
 export default class Layout extends Block {

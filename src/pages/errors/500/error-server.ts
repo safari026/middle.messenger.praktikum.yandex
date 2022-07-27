@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from '@/core/Block';
 import '../error.scss';
 
 export default class ServerErrorPage extends Block {

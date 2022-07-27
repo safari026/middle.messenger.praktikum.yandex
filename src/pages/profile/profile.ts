@@ -1,12 +1,12 @@
-import { Block } from 'core';
-import { BrowserRouter } from 'core/BrowserRouter';
-import { getUserInfoRows } from 'utils/getUserInfoRows';
-import { Store } from 'core/Store';
-import { withRouter } from 'core/withRouter';
-import { withStore } from 'core/withStore';
+import { Block } from '@/core';
+import { BrowserRouter } from '@/core/BrowserRouter';
+import { getUserInfoRows } from '@/utils/getUserInfoRows';
+import { Store } from '@/core/Store';
+import { withRouter } from '@/core/withRouter';
+import { withStore } from '@/core/withStore';
 
 import './profile.scss';
-import { getUser, logout } from 'services/auth';
+import { getUser, logout } from '@/services/auth';
 
 interface UserProfileProps {
 	router: BrowserRouter;
@@ -72,7 +72,7 @@ class ProfilePage extends Block<UserProfileProps> {
         <div class="profile-screen">
         ${
 					avatar
-						? `{{{UserAvatar userName="${userName}" avatar="https://ya-praktikum.tech/api/v2/resources/${avatar}"}}}`
+						? `{{{UserAvatar userName="${userName}" avatar="${process.env.API_ENDPOINT}/resources/${avatar}"}}}`
 						: `{{{UserAvatar}}}`
 				}
        

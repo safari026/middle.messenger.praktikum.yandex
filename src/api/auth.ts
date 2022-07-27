@@ -1,4 +1,4 @@
-import HTTPTransport from 'core/ApiServer';
+import HTTPTransport from '../core/ApiServer';
 
 const request = new HTTPTransport();
 

@@ -1,11 +1,11 @@
-import Block from 'core/Block';
+import Block from '@/core/Block';
 import './chats.scss';
-import { withRouter } from 'core/withRouter';
-import { withStore } from 'core/withStore';
-import { BrowserRouter } from 'core/BrowserRouter';
-import { Store } from 'core/Store';
-import { ValidationRule, validationValue } from 'helpers/validation';
-import { getUser } from 'services/auth';
+import { withRouter } from '@/core/withRouter';
+import { withStore } from '@/core/withStore';
+import { BrowserRouter } from '@/core/BrowserRouter';
+import { Store } from '@/core/Store';
+import { ValidationRule, validationValue } from '@/helpers/validation';
+import { getUser } from '@/services/auth';
 import {
 	addUserToChat,
 	createChat,
@@ -14,8 +14,8 @@ import {
 	getChatUsers,
 	removeChat,
 	removeUserFromChat,
-} from 'services/chats';
-import { transformUser } from 'utils/apiTransformers';
+} from '@/services/chats';
+import { transformUser } from '@/utils/apiTransformers';
 
 export interface ChatsProps {
 	router: BrowserRouter;

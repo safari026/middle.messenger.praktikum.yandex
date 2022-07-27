@@ -1,6 +1,6 @@
-import { ProfilePage } from 'pages/profile';
-import { SignInPage } from 'pages/sign-in';
-import { SignUpPage } from 'pages/sign-up';
+import { ProfilePage } from '@/pages/profile';
+import { SignInPage } from '@/pages/sign-in';
+import { SignUpPage } from '@/pages/sign-up';
 import Block from './Block';
 
 export enum Screens {

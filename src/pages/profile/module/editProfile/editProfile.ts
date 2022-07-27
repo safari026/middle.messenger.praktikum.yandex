@@ -1,12 +1,12 @@
-import { Block } from 'core';
-import { BrowserRouter } from 'core/BrowserRouter';
-import { Store } from 'core/Store';
-import { withRouter } from 'core/withRouter';
-import { withStore } from 'core/withStore';
-import { ValidationRule, validationValue } from 'helpers/validation';
-import { getUser } from 'services/auth';
-import { changeUserInfo } from 'services/user';
-import { toUpperCaseFirstLetter } from 'utils/toUpperCaseFirstLetter';
+import { Block } from '@/core';
+import { BrowserRouter } from '@/core/BrowserRouter';
+import { Store } from '@/core/Store';
+import { withRouter } from '@/core/withRouter';
+import { withStore } from '@/core/withStore';
+import { ValidationRule, validationValue } from '@/helpers/validation';
+import { getUser } from '@/services/auth';
+import { changeUserInfo } from '@/services/user';
+import { toUpperCaseFirstLetter } from '@/utils/toUpperCaseFirstLetter';
 
 import '../../profile.scss';
 

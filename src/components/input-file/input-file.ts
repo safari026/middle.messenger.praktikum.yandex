@@ -1,5 +1,5 @@
-import { Block } from 'core';
-import { EventsProps } from 'components/user-avatar/user-avatar';
+import { Block } from '@/core';
+import { EventsProps } from '@/components/user-avatar/user-avatar';
 import './input-file.scss';
 
 interface InputFileProps {

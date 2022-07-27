@@ -1,8 +1,8 @@
-import { hasError } from 'utils/apiHasError';
-import { transformUser } from 'utils/apiTransformers';
-import { Dispatch } from 'core/Store';
+import { hasError } from '@/utils/apiHasError';
+import { transformUser } from '@/utils/apiTransformers';
+import { Dispatch } from '@/core/Store';
 
-import { authAPI } from 'api/auth';
+import { authAPI } from '@/api/auth';
 import { NewPasswordData, NewUserInfo, userAPI } from '../api/user';
 
 type ChangeAvatarPayload = {

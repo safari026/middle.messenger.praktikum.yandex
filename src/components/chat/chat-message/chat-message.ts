@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from '@/core/Block';
 import './chat-message.scss';
 
 export default class ChatMessage extends Block {

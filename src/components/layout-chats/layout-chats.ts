@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from '@/core/Block';
 import './layout-chats.scss';
 
 export default class LayoutChats extends Block {

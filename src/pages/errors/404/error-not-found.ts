@@ -1,4 +1,4 @@
-import { Block } from 'core';
+import { Block } from '@/core';
 import '../error.scss';
 
 export default class NotFoundPage extends Block {

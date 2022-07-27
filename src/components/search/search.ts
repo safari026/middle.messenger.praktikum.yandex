@@ -1,4 +1,4 @@
-import { Block } from 'core';
+import { Block } from '@/core';
 import './search.scss';
 
 export default class Search extends Block {

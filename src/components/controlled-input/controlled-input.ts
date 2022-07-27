@@ -1,6 +1,6 @@
-import { InputProps } from 'components/input /input';
-import { ValidationRule, validationValue } from 'helpers/validation';
-import Block from '../../core/Block';
+import { InputProps } from '@/components/input /input';
+import { ValidationRule, validationValue } from '@/helpers/validation';
+import Block from '@/core/Block';
 
 import './controlled-input.scss';
 

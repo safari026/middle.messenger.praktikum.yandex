@@ -1,11 +1,11 @@
-import Block from 'core/Block';
-import { BrowserRouter } from 'core/BrowserRouter';
-import { Store } from 'core/Store';
-import { withRouter } from 'core/withRouter';
-import { withStore } from 'core/withStore';
-import { ValidationRule, validationValue } from 'helpers/validation';
-import { sendRegisterData } from 'services/auth';
-import { toUpperCaseFirstLetter } from 'utils/toUpperCaseFirstLetter';
+import { BrowserRouter } from '@/core/BrowserRouter';
+import { Store } from '@/core/Store';
+import { withRouter } from '@/core/withRouter';
+import { withStore } from '@/core/withStore';
+import { ValidationRule, validationValue } from '@/helpers/validation';
+import { sendRegisterData } from '@/services/auth';
+import { toUpperCaseFirstLetter } from '@/utils/toUpperCaseFirstLetter';
+import Block from '@/core/Block';
 
 import './sign-up.scss';
 

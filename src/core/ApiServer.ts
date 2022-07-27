@@ -23,7 +23,7 @@ function queryStringify(data: TRequestData) {
 		'?',
 	);
 }
-const baseUrl = 'https://ya-praktikum.tech/api/v2/';
+const baseUrl = `${process.env.API_ENDPOINT}`;
 export default class HTTPTransport {
 	public get = (url: string, options: TRequestOptions = {}) => {
 		return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
@@ -57,7 +57,7 @@ export default class HTTPTransport {
 
 			const xhr = new XMLHttpRequest();
 			const isGet = method === METHODS.GET;
-			const withBaseUrl = `${baseUrl}${url}`;
+			const withBaseUrl = `${baseUrl}/${url}`;
 
 			xhr.open(method, isGet && !!data ? `${withBaseUrl}${queryStringify(data)}` : withBaseUrl);
 			xhr.withCredentials = true;

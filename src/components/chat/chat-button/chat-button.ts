@@ -1,5 +1,5 @@
-import { EventsProps } from 'components/user-avatar/user-avatar';
-import Block from 'core/Block';
+import { EventsProps } from '@/components/user-avatar/user-avatar';
+import Block from '@/core/Block';
 import './chat-button.scss';
 
 export interface ChatProps {

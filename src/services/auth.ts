@@ -1,7 +1,7 @@
-import { hasError } from 'utils/apiHasError';
-import { transformUser } from 'utils/apiTransformers';
-import { Dispatch } from 'core/Store';
-import { authAPI, NewUser } from '../api/auth';
+import { hasError } from '@/utils/apiHasError';
+import { transformUser } from '@/utils/apiTransformers';
+import { Dispatch } from '@/core/Store';
+import { authAPI, NewUser } from '@/api/auth';
 
 type LoginPayload = {
 	login: string;

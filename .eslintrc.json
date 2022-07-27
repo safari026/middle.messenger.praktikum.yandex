@@ -28,7 +28,7 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"import/extensions": [
-			"error",
+			"warn",
 			"ignorePackages",
 			{
 				"js": "never",

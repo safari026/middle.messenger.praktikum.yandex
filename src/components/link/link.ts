@@ -1,7 +1,7 @@
-import { EventsProps } from 'components/user-avatar/user-avatar';
-import Block from 'core/Block';
-import { BrowserRouter } from 'core/BrowserRouter';
-import { withRouter } from 'core/withRouter';
+import { EventsProps } from '@/components/user-avatar/user-avatar';
+import Block from '@/core/Block';
+import { BrowserRouter } from '@/core/BrowserRouter';
+import { withRouter } from '@/core/withRouter';
 
 import './link.scss';
 

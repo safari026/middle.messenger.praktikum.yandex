@@ -1,6 +1,6 @@
-import { chatsAPI } from 'api/chats';
-import { Dispatch } from 'core/Store';
-import { hasError } from 'utils/apiHasError';
+import { chatsAPI } from '@/api/chats';
+import { Dispatch } from '@/core/Store';
+import { hasError } from '@/utils/apiHasError';
 
 export const getChats = async (dispatch: Dispatch<AppState>, state: AppState) => {
 	dispatch({ isLoading: true });
@@ -159,7 +159,7 @@ export const createSocket = (
 	state: AppState,
 	{ userId, chatId, token }: CreateSocket,
 ) => {
-	const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+	const socket = new WebSocket(`${process.env.WS_CHAT_ENDPOINT}/${userId}/${chatId}/${token}`);
 	dispatch({ socket });
 
 	socket.addEventListener('open', () => {
